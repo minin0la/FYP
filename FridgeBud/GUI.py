@@ -1,5 +1,5 @@
-#This will be use for GUI of the software
-#!/usr/bin/python
+# This will be use for GUI of the software
+# !/usr/bin/python
 
 import Tkinter
 top = Tkinter.Tk()
