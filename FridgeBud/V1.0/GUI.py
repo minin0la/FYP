@@ -5,10 +5,6 @@
 #    Sep 26, 2017 02:03:29 PM
 import sys
 import weather
-import os
-from dataIO import fileIO
-import time
-import datetime
 
 try:
     from Tkinter import *
@@ -31,7 +27,6 @@ def vp_start_gui():
     top = FridgeBud_V1_0(root)
     GUI_support.init(root, top)
     root.mainloop()
-    main()
 
 w = None
 def create_FridgeBud_V1_0(root, *args, **kwargs):
@@ -107,7 +102,7 @@ class FridgeBud_V1_0:
         self.information_box.configure(foreground="#000000")
         self.information_box.configure(highlightbackground="#d9d9d9")
         self.information_box.configure(highlightcolor="black")
-        self.information_box.configure(text='''Label''')
+        self.information_box.configure(text=weather.get_weather())
 
         self.storage_label = Label(top)
         self.storage_label.place(relx=0.05, rely=0.7, height=24, width=57)
@@ -193,19 +188,6 @@ class FridgeBud_V1_0:
         self.refresh_button.bind('<Button-1>',lambda e:GUI_support.list_refresh_button(e))
 
 
-    def refresh(self):
-        self.Scrolledlistbox1.delete(0, END)
-        result = ""
-        i = 1
-        lists = fileIO("data/list.json", "load")
-        for the_list in lists:
-            timeleft = the_list["Timeleft"] - int(time.time())
-            result = "{}. Name: {}".format(i, the_list['Name'])
-            self.Scrolledlistbox1.insert(END, result + "\n")
-            result = "Expired On: {}".format(datetime.timedelta(seconds=timeleft))
-            self.Scrolledlistbox1.insert(END, result + "\n")
-            i = i + 1
-
 # The following code is added to facilitate the Scrolled widgets you specified.
 class AutoScroll(object):
     '''Configure the scrollbars for a widget.'''
@@ -281,13 +263,8 @@ class ScrolledListBox(AutoScroll, Listbox):
         Listbox.__init__(self, master, **kw)
         AutoScroll.__init__(self, master)
 
-def main():
-    FridgeBud_V1_0.refresh()
 
 if __name__ == '__main__':
     vp_start_gui()
-    print("START 1")
-    main()
-    print("START 2")
 
 
