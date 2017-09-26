@@ -68,7 +68,7 @@ proc vTclWindow.top37 {base} {
     # CREATING WIDGETS
     ###################
     vTcl::widgets::core::toplevel::createCmd $top -class Toplevel \
-        -menu "$top.m50" -background {#d9d9d9} -highlightbackground {#d9d9d9} \
+        -background {#d9d9d9} -highlightbackground {#d9d9d9} \
         -highlightcolor black 
     wm focusmodel $top passive
     wm geometry $top 800x600+446+61
@@ -97,7 +97,7 @@ proc vTclWindow.top37 {base} {
         -highlightbackground {#d9d9d9} -highlightcolor black -text Weather 
     vTcl:DefineAlias "$top.cpd40" "weather_button" vTcl:WidgetProc "Toplevel1" 1
     bind $top.cpd40 <Button-1> {
-        lambda e: weather_button(e)
+        lambda e: hello_world_button(e)
     }
     label $top.cpd37 \
         -activebackground {#f9f9f9} -activeforeground black \
@@ -106,9 +106,7 @@ proc vTclWindow.top37 {base} {
         -highlightcolor black -text Label 
     vTcl:DefineAlias "$top.cpd37" "information_box" vTcl:WidgetProc "Toplevel1" 1
     label $top.lab38 \
-        -activebackground {#f9f9f9} -activeforeground black \
-        -background {#d9d9d9} -foreground {#000000} \
-        -highlightbackground {#d9d9d9} -highlightcolor black -text Storage 
+        -background {#d9d9d9} -foreground {#000000} -text Storage 
     vTcl:DefineAlias "$top.lab38" "storage_label" vTcl:WidgetProc "Toplevel1" 1
     label $top.cpd39 \
         -activebackground {#f9f9f9} -activeforeground black \
@@ -117,8 +115,8 @@ proc vTclWindow.top37 {base} {
         -text Information 
     vTcl:DefineAlias "$top.cpd39" "information_label" vTcl:WidgetProc "Toplevel1" 1
     vTcl::widgets::ttk::scrolledlistbox::CreateCmd $top.scr44 \
-        -background {#d9d9d9} -height 75 -highlightbackground {#d9d9d9} \
-        -highlightcolor black -width 125 
+        -background {#d9d9d9} -height 450 -highlightbackground {#d9d9d9} \
+        -highlightcolor black -width 242 
     vTcl:DefineAlias "$top.scr44" "Scrolledlistbox1" vTcl:WidgetProc "Toplevel1" 1
 
     $top.scr44.01 configure -background white \
@@ -131,43 +129,14 @@ proc vTclWindow.top37 {base} {
         -selectforeground black \
         -width 10
     label $top.lab45 \
-        -activebackground {#f9f9f9} -activeforeground black \
         -background {#d9d9d9} -font $::vTcl(fonts,vTcl:font9,object) \
-        -foreground {#000000} -highlightbackground {#d9d9d9} \
-        -highlightcolor black -text {Item List} 
+        -foreground {#000000} -text {Item List} 
     vTcl:DefineAlias "$top.lab45" "item_list_box" vTcl:WidgetProc "Toplevel1" 1
-    button $top.cpd48 \
-        -activebackground {#d9d9d9} -activeforeground {#000000} \
-        -background {#d9d9d9} -foreground {#000000} \
-        -highlightbackground {#d9d9d9} -highlightcolor black -relief raised \
-        -text REMOVE 
-    vTcl:DefineAlias "$top.cpd48" "milk_remove_button" vTcl:WidgetProc "Toplevel1" 1
-    bind $top.cpd48 <Button-1> {
-        lambda e: milk_remove_button(e)
-    }
-    label $top.lab49 \
-        -activebackground {#f9f9f9} -activeforeground black \
-        -background {#d9d9d9} -font $::vTcl(fonts,vTcl:font9,object) \
-        -foreground {#000000} -highlightbackground {#d9d9d9} \
-        -highlightcolor black -text Milk 
-    vTcl:DefineAlias "$top.lab49" "milk_label" vTcl:WidgetProc "Toplevel1" 1
-    menu $top.m50 \
-        -activebackground {#d8d8d8} -activeforeground {#000000} \
-        -background {#d9d9d9} -font TkMenuFont -foreground {#000000} \
-        -tearoff 0 
-    button $top.but37 \
-        -activebackground {#d9d9d9} -activeforeground {#000000} \
-        -background {#d9d9d9} -foreground {#000000} \
-        -highlightbackground {#d9d9d9} -highlightcolor black -text Refresh 
-    vTcl:DefineAlias "$top.but37" "refresh_button" vTcl:WidgetProc "Toplevel1" 1
-    bind $top.but37 <Button-1> {
-        lambda e: list_refresh_button(e)
-    }
     ###################
     # SETTING GEOMETRY
     ###################
     place $top.but38 \
-        -in $top -x 110 -y 460 -width 77 -relwidth 0 -height 42 -relheight 0 \
+        -in $top -x 220 -y 460 -width 77 -relwidth 0 -height 42 -relheight 0 \
         -anchor nw -bordermode ignore 
     place $top.cpd40 \
         -in $top -x 40 -y 360 -width 177 -height 42 -anchor nw \
@@ -181,18 +150,10 @@ proc vTclWindow.top37 {base} {
         -in $top -x 40 -y 330 -width 77 -relwidth 0 -height 24 -relheight 0 \
         -anchor nw -bordermode inside 
     place $top.scr44 \
-        -in $top -x 540 -y 110 -width 242 -relwidth 0 -height 450 \
+        -in $top -x 540 -y 120 -width 242 -relwidth 0 -height 450 \
         -relheight 0 -anchor nw -bordermode ignore 
     place $top.lab45 \
         -in $top -x 550 -y 40 -width 221 -relwidth 0 -height 54 -relheight 0 \
-        -anchor nw -bordermode ignore 
-    place $top.cpd48 \
-        -in $top -x 200 -y 460 -width 77 -height 42 -anchor nw \
-        -bordermode inside 
-    place $top.lab49 \
-        -in $top -x 40 -y 460 -anchor nw -bordermode ignore 
-    place $top.but37 \
-        -in $top -x 630 -y 570 -width 57 -relwidth 0 -height 22 -relheight 0 \
         -anchor nw -bordermode ignore 
 
     vTcl:FireEvent $base <<Ready>>
