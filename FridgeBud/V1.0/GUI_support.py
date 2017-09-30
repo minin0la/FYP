@@ -12,6 +12,7 @@ from dataIO import fileIO
 import time
 import datetime
 import asyncio
+import manage_item
 
 try:
     from Tkinter import *
@@ -67,6 +68,9 @@ def milk_remove_button(p1):
 def weather_button(p1):
     w.information_box.configure(text=weather.get_weather())
 
+def manage_item_button(p1):
+    manage_item.create_manage_item(root)
+
 def refresh():
     w.Scrolledlistbox1.delete(0, END)
     result = ""
@@ -97,6 +101,8 @@ def destroy_window():
     top_level.destroy()
     top_level = None
 
+def manage():
+    manage_item.create_FridgeBud(root)
 
 def check_folders():
     if not os.path.exists("data/"):
@@ -109,7 +115,6 @@ def check_files():
     if not fileIO(f, "check"):
         print("Creating empty list.json...")
         fileIO(f, "save", [])
-
 
 check_folders()
 check_files()
