@@ -81,7 +81,7 @@ proc vTclWindow.top37 {base} {
     wm overrideredirect $top 0
     wm resizable $top 1 1
     wm deiconify $top
-    wm title $top "FridgeBud_V1_0"
+    wm title $top "FridgeBud"
     vTcl:DefineAlias "$top" "main_page" vTcl:Toplevel:WidgetProc "" 1
     button $top.cpd40 \
         -activebackground {#d9d9d9} -activeforeground {#000000} \

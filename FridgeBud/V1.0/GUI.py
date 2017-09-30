@@ -25,7 +25,7 @@ def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
     root = Tk()
-    top = FridgeBud_V1_0 (root)
+    top = FridgeBud (root)
     w, h = root.winfo_screenwidth(), root.winfo_screenheight()
     root.overrideredirect(1)
     root.geometry("%dx%d+0+0" % (w, h))
@@ -33,21 +33,21 @@ def vp_start_gui():
     root.mainloop()
 
 w = None
-def create_FridgeBud_V1_0(root, *args, **kwargs):
+def create_FridgeBud(root, *args, **kwargs):
     '''Starting point when module is imported by another program.'''
     global w, w_win, rt
     rt = root
     w = Toplevel (root)
-    top = FridgeBud_V1_0 (w)
+    top = FridgeBud (w)
     GUI_support.init(w, top, *args, **kwargs)
     return (w, top)
 
-def destroy_FridgeBud_V1_0():
+def destroy_FridgeBud():
     global w
     w.destroy()
     w = None
 
-class FridgeBud_V1_0:
+class FridgeBud:
     def __init__(self, top=None):
         '''This class configures and populates the toplevel window.
            top is the toplevel containing window.'''
@@ -67,7 +67,7 @@ class FridgeBud_V1_0:
             [('selected', _compcolor), ('active',_ana2color)])
 
         top.geometry("800x600+446+61")
-        top.title("FridgeBud_V1_0")
+        top.title("FridgeBud")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
         top.configure(highlightcolor="black")
