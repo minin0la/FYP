@@ -5,6 +5,8 @@
 #    Sep 30, 2017 11:15:35 AM
 import sys
 import GUI
+import PIL.Image
+import PIL.ImageTk
 
 try:
     from Tkinter import *
@@ -189,7 +191,7 @@ class FridgeBud:
         self.clear_button.configure(width=97)
 
         self.milk_button = Button(top)
-        self.milk_button.place(relx=0.04, rely=0.32, height=152, width=167)
+        self.milk_button.place(relx=0.04, rely=0.32, height=152, width=177)
         self.milk_button.configure(activebackground="#d9d9d9")
         self.milk_button.configure(activeforeground="#000000")
         self.milk_button.configure(anchor=NW)
@@ -197,8 +199,10 @@ class FridgeBud:
         self.milk_button.configure(foreground="#000000")
         self.milk_button.configure(highlightbackground="#d9d9d9")
         self.milk_button.configure(highlightcolor="black")
-        # self._img1 = PhotoImage(file="../FridgeBud/Images/Milk.jpg")
-        # self.milk_button.configure(image=self._img1)
+        img = PIL.Image.open("Milk.jpg")
+        img = img.resize((152, 177), PIL.Image.ANTIALIAS)
+        self._img1 = PIL.ImageTk.PhotoImage(img)
+        self.milk_button.configure(image=self._img1)
         self.milk_button.configure(relief=RAISED)
         self.milk_button.bind('<Button-1>',lambda e:manage_item_support.milk_button(e))
 
@@ -212,6 +216,10 @@ class FridgeBud:
         self.drinks_button.configure(highlightcolor="black")
         self.drinks_button.configure(relief=RAISED)
         self.drinks_button.configure(text='''Drinks''')
+        img = PIL.Image.open("Images/Drinks.jpeg")
+        img = img.resize((152, 177), PIL.Image.ANTIALIAS)
+        self._img2 = PIL.ImageTk.PhotoImage(img)
+        self.drinks_button.configure(image=self._img2)
         self.drinks_button.bind('<Button-1>',lambda e:manage_item_support.drinks_button(e))
 
         self.meat_button = Button(top)
@@ -223,11 +231,15 @@ class FridgeBud:
         self.meat_button.configure(highlightbackground="#d9d9d9")
         self.meat_button.configure(highlightcolor="black")
         self.meat_button.configure(relief=RAISED)
+        img = PIL.Image.open("Images/Meat.jpg")
+        img = img.resize((152, 177), PIL.Image.ANTIALIAS)
+        self._img3 = PIL.ImageTk.PhotoImage(img)
+        self.meat_button.configure(image=self._img3)
         self.meat_button.configure(text='''Meat''')
         self.meat_button.bind('<Button-1>',lambda e:manage_item_support.meat_button(e))
 
         self.fish_button = Button(top)
-        self.fish_button.place(relx=0.04, rely=0.58, height=152, width=167)
+        self.fish_button.place(relx=0.04, rely=0.58, height=152, width=177)
         self.fish_button.configure(activebackground="#d9d9d9")
         self.fish_button.configure(activeforeground="#000000")
         self.fish_button.configure(background="#d9d9d9")
@@ -236,6 +248,10 @@ class FridgeBud:
         self.fish_button.configure(highlightcolor="black")
         self.fish_button.configure(relief=RAISED)
         self.fish_button.configure(text='''Fish''')
+        img = PIL.Image.open("Images/Fish.jpg")
+        img = img.resize((152, 177), PIL.Image.ANTIALIAS)
+        self._img4 = PIL.ImageTk.PhotoImage(img)
+        self.fish_button.configure(image=self._img4)
         self.fish_button.configure(width=167)
         self.fish_button.bind('<Button-1>',lambda e:manage_item_support.fish_button(e))
 
@@ -250,6 +266,10 @@ class FridgeBud:
         self.vegetables_button.configure(highlightcolor="black")
         self.vegetables_button.configure(relief=RAISED)
         self.vegetables_button.configure(text='''Vegetables''')
+        img = PIL.Image.open("Images/Vegetables.jpg")
+        img = img.resize((152, 177), PIL.Image.ANTIALIAS)
+        self._img5 = PIL.ImageTk.PhotoImage(img)
+        self.vegetables_button.configure(image=self._img5)
         self.vegetables_button.bind('<Button-1>',lambda e:manage_item_support.vegetables_button(e))
 
         self.fruits_button = Button(top)
@@ -262,6 +282,10 @@ class FridgeBud:
         self.fruits_button.configure(highlightcolor="black")
         self.fruits_button.configure(relief=RAISED)
         self.fruits_button.configure(text='''Fruits''')
+        img = PIL.Image.open("Images/Fruits.jpeg")
+        img = img.resize((152, 177), PIL.Image.ANTIALIAS)
+        self._img6 = PIL.ImageTk.PhotoImage(img)
+        self.fruits_button.configure(image=self._img6)
         self.fruits_button.bind('<Button-1>',lambda e:manage_item_support.fruits_button(e))
 
         self.Label2 = Label(top)
