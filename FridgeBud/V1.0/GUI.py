@@ -26,9 +26,6 @@ def vp_start_gui():
     global val, w, root
     root = Tk()
     top = FridgeBud (root)
-    w, h = root.winfo_screenwidth(), root.winfo_screenheight()
-    root.overrideredirect(1)
-    root.geometry("%dx%d+0+0" % (w, h))
     GUI_support.init(root, top)
     root.mainloop()
 
@@ -66,7 +63,9 @@ class FridgeBud:
         self.style.map('.',background=
             [('selected', _compcolor), ('active',_ana2color)])
 
-        top.geometry("800x600+446+61")
+        top.geometry("1024x600+139+157")
+        # wed, heg = top.winfo_screenwidth(), top.winfo_screenheight()
+        # top.geometry("%dx%d+0+0" % (wed, heg))
         top.title("FridgeBud")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")

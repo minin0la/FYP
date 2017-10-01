@@ -26,23 +26,6 @@ except ImportError:
     import tkinter.ttk as ttk
     py3 = 1
 
-def milk_add_button(p1):
-    w.Scrolledlistbox1.delete(0, END)
-    result = ""
-    i = 1
-    lists = fileIO("data/list.json", "load")
-    date = int(time.time() + 86400)
-    lists.append({"Name": "Milk", "Timeleft": date})
-    fileIO("data/list.json", "save", lists)
-    lists = fileIO("data/list.json", "load")
-    for the_list in lists:
-        timeleft = the_list["Timeleft"] - int(time.time())
-        result = "{}. Name: {}".format(i, the_list['Name'])
-        w.Scrolledlistbox1.insert(END, result + "\n")
-        result = "Expired On: {}".format(datetime.timedelta(seconds=timeleft))
-        w.Scrolledlistbox1.insert(END, result + "\n")
-        i = i + 1
-
 def milk_remove_button(p1):
     w.Scrolledlistbox1.delete(0, END)
     result = ""
@@ -58,30 +41,45 @@ def milk_remove_button(p1):
     fileIO("data/list.json", "save", lists)
     lists = fileIO("data/list.json", "load")
     for the_list in lists:
-        timeleft = the_list["Timeleft"] - int(time.time())
         result = "{}. Name: {}".format(i, the_list['Name'])
         w.Scrolledlistbox1.insert(END, result + "\n")
-        result = "Expired On: {}".format(datetime.timedelta(seconds=timeleft))
+        result = "Expiring on {}, {} {} {}".format(the_list['Day'], the_list['Date'], the_list['Month'], the_list['Year'])
         w.Scrolledlistbox1.insert(END, result + "\n")
         i = i + 1
 
 def weather_button(p1):
     w.information_box.configure(text=weather.get_weather())
 
-def manage_item_button(p1):
-    manage_item.create_manage_item(root)
-
 def refresh():
     w.Scrolledlistbox1.delete(0, END)
     result = ""
     i = 1
+    c = -1
     lists = fileIO("data/list.json", "load")
     for the_list in lists:
-        timeleft = the_list["Timeleft"] - int(time.time())
-        result = "{}. Name: {}".format(i, the_list['Name'])
+        result = "{}. {}".format(i, the_list['Name'])
         w.Scrolledlistbox1.insert(END, result + "\n")
-        result = "Expired On: {}".format(datetime.timedelta(seconds=timeleft))
-        w.Scrolledlistbox1.insert(END, result + "\n")
+        c = c + 1
+        # result = "Expiring on {}".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
+        # w.Scrolledlistbox1.insert(END, result + "\n")
+        # c = c + 1
+        dayleft = int(the_list['Date']) - datetime.date.today().day
+        if datetime.date.today() == datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])):
+            result = "Expired ({})".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
+            w.Scrolledlistbox1.insert(END, result + "\n")
+            c = c + 1
+            w.Scrolledlistbox1.itemconfig(c - 1, {'bg':'red'})
+            w.Scrolledlistbox1.itemconfig(c, {'bg':'red'})
+        elif (dayleft < 4) and (int(the_list['Month']) == datetime.date.today().month) and (int(the_list['Year']) == datetime.date.today().year):
+            result = "Expiring on {}".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
+            w.Scrolledlistbox1.insert(END, result + "\n")
+            c = c + 1
+            w.Scrolledlistbox1.itemconfig(c - 1, {'bg':'orange'})
+            w.Scrolledlistbox1.itemconfig(c, {'bg':'orange'})
+        else:
+            result = "Expiring on {}".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
+            w.Scrolledlistbox1.insert(END, result + "\n")
+            c = c + 1
         i = i + 1
     root.after(1000, refresh)
 
@@ -93,6 +91,8 @@ def init(top, gui, *args, **kwargs):
     w = gui
     top_level = top
     root = top
+    check_folders()
+    check_files()
     main()
 
 def destroy_window():
@@ -116,12 +116,6 @@ def check_files():
         print("Creating empty list.json...")
         fileIO(f, "save", [])
 
-check_folders()
-check_files()
-
 if __name__ == '__main__':
     import GUI
     GUI.vp_start_gui()
-    print("START 1")
-    GUI.main()
-    print("START 2")
