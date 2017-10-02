@@ -28,6 +28,8 @@ def vp_start_gui():
     top = FridgeBud (root)
     GUI_support.init(root, top)
     root.mainloop()
+    root.overrideredirect(1)
+    root.attributes('-fullscreen', True)
 
 w = None
 def create_FridgeBud(root, *args, **kwargs):
