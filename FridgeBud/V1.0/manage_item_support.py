@@ -112,7 +112,6 @@ def confirm_button(p1):
     year = get_time().year
     lists.append({"Name": selected, "Date": date, "Month": month, "Year": year})
     fileIO("data/list.json", "save", lists)
-    lists = fileIO("data/list.json", "load")
     selected = None
     days = 0
     months = 0

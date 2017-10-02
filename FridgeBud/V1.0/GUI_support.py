@@ -13,6 +13,7 @@ import time
 import datetime
 import asyncio
 import manage_item
+import delete_item
 
 try:
     from Tkinter import *
@@ -103,6 +104,9 @@ def destroy_window():
 
 def manage():
     manage_item.create_FridgeBud(root)
+
+def remove_item():
+    delete_item.create_FridgeBud(root)
 
 def check_folders():
     if not os.path.exists("data/"):

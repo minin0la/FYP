@@ -85,7 +85,7 @@ class FridgeBud:
         self.weather_button.bind('<Button-1>',lambda e:GUI_support.weather_button(e))
 
         self.information_box = Label(top)
-        self.information_box.place(relx=0.04, rely=0.05, height=254, width=431)
+        self.information_box.place(relx=0.17, rely=0.05, height=254, width=431)
         self.information_box.configure(activebackground="#f9f9f9")
         self.information_box.configure(activeforeground="black")
         self.information_box.configure(background="#d9d9d9")
@@ -93,11 +93,11 @@ class FridgeBud:
         self.information_box.configure(foreground="#000000")
         self.information_box.configure(highlightbackground="#d9d9d9")
         self.information_box.configure(highlightcolor="black")
-        self.information_box.configure(text=weather.get_weather())
+        # self.information_box.configure(text=weather.get_weather())
         self.information_box.configure(width=431)
 
         self.information_label = Label(top)
-        self.information_label.place(relx=0.05, rely=0.55, height=24, width=77)
+        self.information_label.place(relx=0.04, rely=0.55, height=24, width=77)
         self.information_label.configure(activebackground="#f9f9f9")
         self.information_label.configure(activeforeground="black")
         self.information_label.configure(background="#d9d9d9")
@@ -107,8 +107,8 @@ class FridgeBud:
         self.information_label.configure(text='''Information''')
 
         self.Scrolledlistbox1 = ScrolledListBox(top)
-        self.Scrolledlistbox1.place(relx=0.61, rely=0.17, relheight=0.8
-                , relwidth=0.37)
+        self.Scrolledlistbox1.place(relx=0.69, rely=0.17, relheight=0.8
+                , relwidth=0.29)
         self.Scrolledlistbox1.configure(background="white")
         self.Scrolledlistbox1.configure(font="TkFixedFont")
         self.Scrolledlistbox1.configure(foreground="black")
@@ -119,7 +119,7 @@ class FridgeBud:
         self.Scrolledlistbox1.configure(width=10)
 
         self.item_list_box = Label(top)
-        self.item_list_box.place(relx=0.65, rely=0.05, height=54, width=221)
+        self.item_list_box.place(relx=0.73, rely=0.05, height=54, width=221)
         self.item_list_box.configure(activebackground="#f9f9f9")
         self.item_list_box.configure(activeforeground="black")
         self.item_list_box.configure(background="#d9d9d9")
@@ -133,14 +133,13 @@ class FridgeBud:
         top.configure(menu = self.menubar)
 
         self.database_label = Label(top)
-        self.database_label.place(relx=0.05, rely=0.72, height=24, width=67)
+        self.database_label.place(relx=0.04, rely=0.72, height=24, width=89)
         self.database_label.configure(background="#d9d9d9")
         self.database_label.configure(foreground="#000000")
         self.database_label.configure(text='''Database''')
 
         self.manage_item_button = Button(top)
-        self.manage_item_button.place(relx=0.05, rely=0.77, height=42, width=177)
-
+        self.manage_item_button.place(relx=0.04, rely=0.77, height=42, width=177)
         self.manage_item_button.configure(activebackground="#d9d9d9")
         self.manage_item_button.configure(activeforeground="#000000")
         self.manage_item_button.configure(background="#d9d9d9")
@@ -150,6 +149,17 @@ class FridgeBud:
         self.manage_item_button.configure(text='''Manage Item''')
         self.manage_item_button.bind('<Button-1>', lambda e:GUI_support.manage())
 
+        self.remove_item_button = Button(top)
+        self.remove_item_button.place(relx=0.22, rely=0.77, height=42
+                , width=177)
+        self.remove_item_button.configure(activebackground="#d9d9d9")
+        self.remove_item_button.configure(activeforeground="#000000")
+        self.remove_item_button.configure(background="#d9d9d9")
+        self.remove_item_button.configure(foreground="#000000")
+        self.remove_item_button.configure(highlightbackground="#d9d9d9")
+        self.remove_item_button.configure(highlightcolor="black")
+        self.remove_item_button.configure(text='''Remove item''')
+        self.remove_item_button.bind('<Button-1>',lambda e:GUI_support.remove_item())
 
 # The following code is added to facilitate the Scrolled widgets you specified.
 class AutoScroll(object):

@@ -1,38 +1,8 @@
 [
     {
-        "Date" : 3,
-        "Month" : 10,
-        "Name" : "Meats",
-        "Year" : 2017
-    },
-    {
-        "Date" : 5,
-        "Month" : 1,
-        "Name" : "SOME DICK",
-        "Year" : 2018
-    },
-    {
-        "Date" : 28,
-        "Month" : 7,
-        "Name" : "Kenneth Dick",
-        "Year" : 2041
-    },
-    {
-        "Date" : 2,
-        "Month" : 10,
-        "Name" : "Meats",
-        "Year" : 2017
-    },
-    {
-        "Date" : 3,
-        "Month" : 10,
-        "Name" : "Vegetables",
-        "Year" : 2017
-    },
-    {
-        "Date" : 2,
+        "Date" : 1,
         "Month" : 10,
         "Name" : "Fruits",
-        "Year" : 2017
+        "Year" : 2020
     }
 ]
