@@ -62,7 +62,6 @@ class FridgeBud:
 
         top.overrideredirect(True)
         top.geometry("{0}x{1}+0+0".format(top.winfo_screenwidth(), top.winfo_screenheight()))
-        root.overrideredirect(1)
         top.title("FridgeBud")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
