@@ -174,7 +174,7 @@ class FridgeBud:
         self.setting_button.configure(highlightbackground="#d9d9d9")
         self.setting_button.configure(highlightcolor="black")
         self.setting_button.configure(text='''Settings''')
-        # self.setting_button.bind('<Button-1>',lambda e:GUI_support.manage_item_button(e))
+        self.setting_button.bind('<Button-1>',lambda e:destroy_FridgeBud())
 
         self.setting_label = Label(top)
         self.setting_label.place(relx=0.04, rely=0.85, height=24, width=89)
