@@ -64,7 +64,7 @@ class FridgeBud:
         self.style.map('.',background=
             [('selected', _compcolor), ('active',_ana2color)])
 
-        top.geometry("1024x600+139+157")
+        #top.geometry("1024x600+139+157")
         # wed, heg = top.winfo_screenwidth(), top.winfo_screenheight()
         # top.geometry("%dx%d+0+0" % (wed, heg))
         top.attributes('-fullscreen', True)
