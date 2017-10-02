@@ -63,6 +63,8 @@ class FridgeBud:
         top.geometry("1024x600+139+157")
         # wed, heg = top.winfo_screenwidth(), top.winfo_screenheight()
         # top.geometry("%dx%d+0+0" % (wed, heg))
+        wed, heg = top.winfo_screenwidth(), top.winfo_screenheight()
+        top.geometry("%dx%d+0+0" % (wed, heg))
         top.title("FridgeBud")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
