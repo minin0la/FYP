@@ -74,7 +74,7 @@ class FridgeBud:
 
 
         self.weather_button = Button(top)
-        self.weather_button.place(relx=0.05, rely=0.62, height=42, width=177)
+        self.weather_button.place(relx=0.04, rely=0.63, height=42, width=177)
         self.weather_button.configure(activebackground="#d9d9d9")
         self.weather_button.configure(activeforeground="#000000")
         self.weather_button.configure(background="#d9d9d9")
@@ -93,11 +93,11 @@ class FridgeBud:
         self.information_box.configure(foreground="#000000")
         self.information_box.configure(highlightbackground="#d9d9d9")
         self.information_box.configure(highlightcolor="black")
-        # self.information_box.configure(text=weather.get_weather())
+        self.information_box.configure(text=weather.get_weather())
         self.information_box.configure(width=431)
 
         self.information_label = Label(top)
-        self.information_label.place(relx=0.04, rely=0.55, height=24, width=77)
+        self.information_label.place(relx=0.04, rely=0.58, height=24, width=77)
         self.information_label.configure(activebackground="#f9f9f9")
         self.information_label.configure(activeforeground="black")
         self.information_label.configure(background="#d9d9d9")
@@ -160,6 +160,29 @@ class FridgeBud:
         self.remove_item_button.configure(highlightcolor="black")
         self.remove_item_button.configure(text='''Remove item''')
         self.remove_item_button.bind('<Button-1>',lambda e:GUI_support.remove_item())
+
+        self.setting_button = Button(top)
+        self.setting_button.place(relx=0.04, rely=0.9, height=42, width=177)
+        self.setting_button.configure(activebackground="#d9d9d9")
+        self.setting_button.configure(activeforeground="#000000")
+        self.setting_button.configure(background="#d9d9d9")
+        self.setting_button.configure(foreground="#000000")
+        self.setting_button.configure(highlightbackground="#d9d9d9")
+        self.setting_button.configure(highlightcolor="black")
+        self.setting_button.configure(text='''Settings''')
+        # self.setting_button.bind('<Button-1>',lambda e:GUI_support.manage_item_button(e))
+
+        self.setting_label = Label(top)
+        self.setting_label.place(relx=0.04, rely=0.85, height=24, width=89)
+        self.setting_label.configure(activebackground="#f9f9f9")
+        self.setting_label.configure(activeforeground="black")
+        self.setting_label.configure(background="#d9d9d9")
+        self.setting_label.configure(foreground="#000000")
+        self.setting_label.configure(highlightbackground="#d9d9d9")
+        self.setting_label.configure(highlightcolor="black")
+        self.setting_label.configure(text='''Settings''')
+
+
 
 # The following code is added to facilitate the Scrolled widgets you specified.
 class AutoScroll(object):

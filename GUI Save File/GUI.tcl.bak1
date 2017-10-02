@@ -71,7 +71,7 @@ proc vTclWindow.top37 {base} {
         -menu "$top.m50" -background {#d9d9d9} -highlightbackground {#d9d9d9} \
         -highlightcolor black 
     wm focusmodel $top passive
-    wm geometry $top 800x600+446+61
+    wm geometry $top 1024x600+445+61
     update
     # set in toplevel.wgt.
     global vTcl
@@ -104,8 +104,8 @@ proc vTclWindow.top37 {base} {
         -text Information 
     vTcl:DefineAlias "$top.cpd39" "information_label" vTcl:WidgetProc "main_page" 1
     vTcl::widgets::ttk::scrolledlistbox::CreateCmd $top.scr44 \
-        -background {#d9d9d9} -height 480 -highlightbackground {#d9d9d9} \
-        -highlightcolor black -width 292 
+        -background {#d9d9d9} -height 75 -highlightbackground {#d9d9d9} \
+        -highlightcolor black -width 125 
     vTcl:DefineAlias "$top.scr44" "Scrolledlistbox1" vTcl:WidgetProc "main_page" 1
 
     $top.scr44.01 configure -background white \
@@ -121,22 +121,33 @@ proc vTclWindow.top37 {base} {
         -activebackground {#f9f9f9} -activeforeground black \
         -background {#d9d9d9} -font $::vTcl(fonts,vTcl:font9,object) \
         -foreground {#000000} -highlightbackground {#d9d9d9} \
-        -highlightcolor black -text {Item List} 
+        -highlightcolor black -text {Item list} 
     vTcl:DefineAlias "$top.lab45" "item_list_box" vTcl:WidgetProc "main_page" 1
     menu $top.m50 \
         -activebackground {#d8d8d8} -activeforeground {#000000} \
         -background {#d9d9d9} -font TkMenuFont -foreground {#000000} \
         -tearoff 0 
     label $top.lab37 \
-        -background {#d9d9d9} -foreground {#000000} -text Database 
+        -activebackground {#f9f9f9} -activeforeground black \
+        -background {#d9d9d9} -foreground {#000000} \
+        -highlightbackground {#d9d9d9} -highlightcolor black \
+        -text {Manage item} 
     vTcl:DefineAlias "$top.lab37" "database_label" vTcl:WidgetProc "main_page" 1
     button $top.cpd38 \
         -activebackground {#d9d9d9} -activeforeground {#000000} \
         -background {#d9d9d9} -foreground {#000000} \
-        -highlightbackground {#d9d9d9} -highlightcolor black \
-        -text {Manage Item} 
+        -highlightbackground {#d9d9d9} -highlightcolor black -text {Add item} 
     vTcl:DefineAlias "$top.cpd38" "manage_item_button" vTcl:WidgetProc "main_page" 1
     bind $top.cpd38 <Button-1> {
+        lambda e: manage_item_button(e)
+    }
+    button $top.cpd57 \
+        -activebackground {#d9d9d9} -activeforeground {#000000} \
+        -background {#d9d9d9} -foreground {#000000} \
+        -highlightbackground {#d9d9d9} -highlightcolor black \
+        -text {Remove item} 
+    vTcl:DefineAlias "$top.cpd57" "manage_item_button1" vTcl:WidgetProc "main_page" 1
+    bind $top.cpd57 <Button-1> {
         lambda e: manage_item_button(e)
     }
     ###################
@@ -146,21 +157,24 @@ proc vTclWindow.top37 {base} {
         -in $top -x 40 -y 370 -width 177 -height 42 -anchor nw \
         -bordermode inside 
     place $top.cpd37 \
-        -in $top -x 30 -y 30 -width 431 -relwidth 0 -height 254 -relheight 0 \
+        -in $top -x 170 -y 30 -width 431 -relwidth 0 -height 254 -relheight 0 \
         -anchor nw -bordermode inside 
     place $top.cpd39 \
         -in $top -x 40 -y 330 -width 77 -relwidth 0 -height 24 -relheight 0 \
         -anchor nw -bordermode inside 
     place $top.scr44 \
-        -in $top -x 490 -y 100 -width 292 -relwidth 0 -height 480 \
+        -in $top -x 710 -y 100 -width 292 -relwidth 0 -height 480 \
         -relheight 0 -anchor nw -bordermode ignore 
     place $top.lab45 \
-        -in $top -x 523 -y 30 -width 221 -relwidth 0 -height 54 -relheight 0 \
+        -in $top -x 750 -y 30 -width 221 -relwidth 0 -height 54 -relheight 0 \
         -anchor nw -bordermode ignore 
     place $top.lab37 \
         -in $top -x 40 -y 430 -anchor nw -bordermode ignore 
     place $top.cpd38 \
         -in $top -x 40 -y 460 -width 177 -height 42 -anchor nw \
+        -bordermode inside 
+    place $top.cpd57 \
+        -in $top -x 230 -y 460 -width 177 -height 42 -anchor nw \
         -bordermode inside 
 
     vTcl:FireEvent $base <<Ready>>

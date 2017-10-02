@@ -104,19 +104,23 @@ def vegetables_button(p1):
 
 def confirm_button(p1):
     global selected, days, months, years
-    lists = fileIO("data/list.json", "load")
-    # day = get_time().isoweekday()
-    #nday_list = {"1": "Monday", "2": "Tuesday", "3": "Wednesday", "4": "Thursday", "5": "Friday", "6": "Saturday", "7": "Sunday"}
-    date = get_time().day
-    month = get_time().month
-    year = get_time().year
-    lists.append({"Name": selected, "Date": date, "Month": month, "Year": year})
-    fileIO("data/list.json", "save", lists)
-    selected = None
-    days = 0
-    months = 0
-    years = 0
-    show_info()
+    if selected != None:
+        lists = fileIO("data/list.json", "load")
+        # day = get_time().isoweekday()
+        #nday_list = {"1": "Monday", "2": "Tuesday", "3": "Wednesday", "4": "Thursday", "5": "Friday", "6": "Saturday", "7": "Sunday"}
+        date = get_time().day
+        month = get_time().month
+        year = get_time().year
+        lists.append({"Name": selected, "Date": date, "Month": month, "Year": year})
+        fileIO("data/list.json", "save", lists)
+        selected = None
+        days = 0
+        months = 0
+        years = 0
+        show_info()
+    else:
+        w.item_info_box.configure(text='''Please select the item below first!''')
+
 
 def clear_button(p1):
     global selected, days, months, years

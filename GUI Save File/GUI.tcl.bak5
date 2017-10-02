@@ -83,9 +83,6 @@ proc vTclWindow.top37 {base} {
     wm deiconify $top
     wm title $top "FridgeBud V1.0"
     vTcl:DefineAlias "$top" "Toplevel1" vTcl:Toplevel:WidgetProc "" 1
-    ttk::style configure Button -background #d9d9d9
-    ttk::style configure Button -foreground #000000
-    ttk::style configure Button -font TkDefaultFont
     button $top.but38 \
         -activebackground {#d9d9d9} -activeforeground {#000000} \
         -background {#d9d9d9} -foreground {#000000} \
@@ -163,6 +160,9 @@ proc vTclWindow.top37 {base} {
         -background {#d9d9d9} -foreground {#000000} \
         -highlightbackground {#d9d9d9} -highlightcolor black -text Refresh 
     vTcl:DefineAlias "$top.but37" "refresh_button" vTcl:WidgetProc "Toplevel1" 1
+    bind $top.but37 <Button-1> {
+        lambda e: list_refresh_button(e)
+    }
     ###################
     # SETTING GEOMETRY
     ###################
