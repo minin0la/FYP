@@ -219,7 +219,7 @@ class FridgeBud:
         self.weather_location.configure(width=411)
 
         self.weather_others = Label(top)
-        self.weather_others.place(relx=0.36, rely=0.12, height=94, width=270)
+        self.weather_others.place(relx=0.34, rely=0.12, height=94, width=270)
         self.weather_others.configure(activebackground="#f9f9f9")
         self.weather_others.configure(activeforeground="black")
         self.weather_others.configure(background="#d9d9d9")
