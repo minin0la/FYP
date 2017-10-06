@@ -30,7 +30,10 @@ def get_travel_time():
     transit = gmaps.distance_matrix(start, end,
                                     mode="transit",
                                     departure_time=now)
-    transit = transit['rows'][0]['elements'][0]['duration']['text']
+    try:
+        transit = transit['rows'][0]['elements'][0]['duration']['text']
+    except KeyError:
+        transit = "Not Available"
     origin = gmaps.distance_matrix(start, end,
                                     mode="transit",
                                     departure_time=now)
