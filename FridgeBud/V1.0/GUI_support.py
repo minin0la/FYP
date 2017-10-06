@@ -14,6 +14,7 @@ import datetime
 import asyncio
 import manage_item
 import delete_item
+import manage_settings
 
 try:
     from Tkinter import *
@@ -108,6 +109,9 @@ def manage():
 def remove_item():
     delete_item.create_FridgeBud(root)
 
+def settings():
+    manage_settings.create_FridgeBud(root)
+
 def check_folders():
     if not os.path.exists("data/"):
         print("Creating data/ folder...")
@@ -119,6 +123,13 @@ def check_files():
     if not fileIO(f, "check"):
         print("Creating empty list.json...")
         fileIO(f, "save", [])
+    f = "data/settings.json"
+    if not fileIO(f, "check"):
+        print("Creating empty settings.json...")
+        fileIO(f, "save", [{"Country": "Singapore", "Home_Postal_Code": "648324", "Work_Postal_Code": "139651"}])
+
+check_files()
+check_folders()
 
 if __name__ == '__main__':
     import GUI

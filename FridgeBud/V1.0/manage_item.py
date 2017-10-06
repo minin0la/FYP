@@ -164,9 +164,9 @@ class FridgeBud:
         self.confirm_button = Button(top)
         self.confirm_button.place(relx=0.75, rely=0.67, height=62, width=97)
         self.confirm_button.configure(activebackground="#66ff66")
-        self.confirm_button.configure(activeforeground="#66ff66")
+        self.confirm_button.configure(activeforeground="#000000")
         self.confirm_button.configure(background="#66ff66")
-        self.confirm_button.configure(foreground="#66ff66")
+        self.confirm_button.configure(foreground="#000000")
         self.confirm_button.configure(highlightbackground="#d9d9d9")
         self.confirm_button.configure(highlightcolor="black")
         self.confirm_button.configure(relief=RAISED)
@@ -365,11 +365,6 @@ class FridgeBud:
         self.other_item_entry.configure(insertbackground="black")
         self.other_item_entry.configure(textvariable=manage_item_support.other_item_text)
         self.other_item_entry.configure(width=372)
-
-        # self.other_time_entry = ttk.Entry(top)
-        # self.other_time_entry.place(relx=0.28, rely=0.13, relheight=0.06, relwidth=0.32)
-        # self.other_time_entry.configure(takefocus="")
-        # self.other_time_entry.configure(cursor="ibeam")
 
         self.add_other_button = Button(top)
         self.add_other_button.place(relx=0.43, rely=0.87, height=62, width=177)

@@ -4,6 +4,152 @@
 set vTcl(timestamp) ""
 
 
+
+
+#############################################################################
+## vTcl Code to Load Stock Images
+
+
+if {![info exist vTcl(sourcing)]} {
+#############################################################################
+## Procedure:  vTcl:rename
+
+proc ::vTcl:rename {name} {
+    ## This procedure may be used free of restrictions.
+    ##    Exception added by Christian Gavin on 08/08/02.
+    ## Other packages and widget toolkits have different licensing requirements.
+    ##    Please read their license agreements for details.
+    regsub -all "\\." $name "_" ret
+    regsub -all "\\-" $ret "_" ret
+    regsub -all " " $ret "_" ret
+    regsub -all "/" $ret "__" ret
+    regsub -all "::" $ret "__" ret
+
+    return [string tolower $ret]
+}
+
+#############################################################################
+## Procedure:  vTcl:image:create_new_image
+
+proc ::vTcl:image:create_new_image {filename {description {no description}} {type {}} {data {}}} {
+    ## This procedure may be used free of restrictions.
+    ##    Exception added by Christian Gavin on 08/08/02.
+    ## Other packages and widget toolkits have different licensing requirements.
+    ##    Please read their license agreements for details.
+    # Does the image already exist?
+    if {[info exists ::vTcl(images,files)]} {
+        if {[lsearch -exact $::vTcl(images,files) $filename] > -1} { return }
+    }
+    if {![info exists ::vTcl(sourcing)] && [string length $data] > 0} {
+        set object [image create  [vTcl:image:get_creation_type $filename]  -data $data]
+    } else {
+        # Wait a minute... Does the file actually exist?
+        if {! [file exists $filename] } {
+            # Try current directory
+            set script [file dirname [info script]]
+            set filename [file join $script [file tail $filename] ]
+        }
+
+        if {![file exists $filename]} {
+            set description "file not found!"
+            ## will add 'broken image' again when img is fixed, for
+            ## now create empty
+            set object [image create photo -width 1 -height 1]
+        } else {
+            set object [image create  [vTcl:image:get_creation_type $filename]  -file $filename]
+        }
+    }
+
+    set reference [vTcl:rename $filename]
+    set ::vTcl(images,$reference,image)       $object
+    set ::vTcl(images,$reference,description) $description
+    set ::vTcl(images,$reference,type)        $type
+    set ::vTcl(images,filename,$object)       $filename
+
+    lappend ::vTcl(images,files) $filename
+    lappend ::vTcl(images,$type) $object
+    set ::vTcl(imagefile,$object) $filename   ;# Rozen
+    # return image name in case caller might want it
+    return $object
+}
+
+#############################################################################
+## Procedure:  vTcl:image:get_image
+
+proc ::vTcl:image:get_image {filename} {
+    ## This procedure may be used free of restrictions.
+    ##    Exception added by Christian Gavin on 08/08/02.
+    ## Other packages and widget toolkits have different licensing requirements.
+    ##    Please read their license agreements for details.
+
+    set reference [vTcl:rename $filename]
+
+    # Let's do some checking first
+    if {![info exists ::vTcl(images,$reference,image)]} {
+        # Well, the path may be wrong; in that case check
+        # only the filename instead, without the path.
+
+        set imageTail [file tail $filename]
+
+        foreach oneFile $::vTcl(images,files) {
+            if {[file tail $oneFile] == $imageTail} {
+                set reference [vTcl:rename $oneFile]
+                break
+            }
+        }
+    }
+    # Rozen. There follows a hack in case one wants to rerun a tcl
+    # file which contains a file name where an image is expected.
+    if {![info exists ::vTcl(images,$reference,image)]} {
+        set ::vTcl(images,$reference,image)  [vTcl:image:create_new_image $filename]
+    }
+    return $::vTcl(images,$reference,image)
+}
+
+#############################################################################
+## Procedure:  vTcl:image:get_creation_type
+
+proc ::vTcl:image:get_creation_type {filename} {
+    ## This procedure may be used free of restrictions.
+    ##    Exception added by Christian Gavin on 08/08/02.
+    ## Other packages and widget toolkits have different licensing requirements.
+    ##    Please read their license agreements for details.
+
+    switch [string tolower [file extension $filename]] {
+        .ppm -
+        .jpg -
+        .bmp -
+        .gif    {return photo}
+        .xbm    {return bitmap}
+        default {return photo}
+    }
+}
+
+foreach img {
+
+
+            } {
+    eval set _file [lindex $img 0]
+    vTcl:image:create_new_image\
+        $_file [lindex $img 1] [lindex $img 2] [lindex $img 3]
+}
+
+}
+#############################################################################
+## vTcl Code to Load User Images
+
+catch {package require Img}
+
+foreach img {
+
+        {{$[pwd]8-40.jpg} {user image} user {}}
+
+            } {
+    eval set _file [lindex $img 0]
+    vTcl:image:create_new_image\
+        $_file [lindex $img 1] [lindex $img 2] [lindex $img 3]
+}
+
 set vTcl(actual_gui_bg) #d9d9d9
 set vTcl(actual_gui_fg) #000000
 set vTcl(actual_gui_menu_bg) #d9d9d9
@@ -86,8 +232,9 @@ proc vTclWindow.top37 {base} {
     button $top.cpd40 \
         -activebackground {#d9d9d9} -activeforeground {#000000} \
         -background {#d9d9d9} -foreground {#000000} \
-        -highlightbackground {#d9d9d9} -highlightcolor black -text Weather 
-    vTcl:DefineAlias "$top.cpd40" "weather_button" vTcl:WidgetProc "main_page" 1
+        -highlightbackground {#d9d9d9} -highlightcolor black \
+        -text {Traffic Quick Search} 
+    vTcl:DefineAlias "$top.cpd40" "traffic_quick_search" vTcl:WidgetProc "main_page" 1
     bind $top.cpd40 <Button-1> {
         lambda e: weather_button(e)
     }
@@ -95,13 +242,12 @@ proc vTclWindow.top37 {base} {
         -activebackground {#f9f9f9} -activeforeground black \
         -background {#d9d9d9} -font $::vTcl(fonts,vTcl:font9,object) \
         -foreground {#000000} -highlightbackground {#d9d9d9} \
-        -highlightcolor black -text Label 
-    vTcl:DefineAlias "$top.cpd37" "information_box" vTcl:WidgetProc "main_page" 1
+        -highlightcolor black -text {Weather Temp} 
+    vTcl:DefineAlias "$top.cpd37" "weather_temp" vTcl:WidgetProc "main_page" 1
     label $top.cpd39 \
         -activebackground {#f9f9f9} -activeforeground black \
         -background {#d9d9d9} -foreground {#000000} \
-        -highlightbackground {#d9d9d9} -highlightcolor black \
-        -text Information 
+        -highlightbackground {#d9d9d9} -highlightcolor black -text Traffic 
     vTcl:DefineAlias "$top.cpd39" "information_label" vTcl:WidgetProc "main_page" 1
     vTcl::widgets::ttk::scrolledlistbox::CreateCmd $top.scr44 \
         -background {#d9d9d9} -height 75 -highlightbackground {#d9d9d9} \
@@ -164,14 +310,72 @@ proc vTclWindow.top37 {base} {
         -highlightbackground {#d9d9d9} -highlightcolor black \
         -text {Manage item} 
     vTcl:DefineAlias "$top.cpd59" "database_label1" vTcl:WidgetProc "main_page" 1
+    canvas $top.can37 \
+        -background {#d9d9d9} -height 128 -highlightbackground {#d9d9d9} \
+        -insertbackground black -relief ridge -selectbackground {#c4c4c4} \
+        -selectforeground black -width 143 
+    vTcl:DefineAlias "$top.can37" "weather_icon" vTcl:WidgetProc "main_page" 1
+    canvas $top.can37.cpd46 \
+        -background {#d9d9d9} -closeenough 1.0 -height 128 \
+        -highlightbackground {#d9d9d9} -highlightcolor black \
+        -insertbackground black -relief ridge -selectbackground {#c4c4c4} \
+        -selectforeground black -width 143 
+    vTcl:DefineAlias "$top.can37.cpd46" "weather_icon1" vTcl:WidgetProc "main_page" 1
+    label $top.cpd41 \
+        -activebackground {#f9f9f9} -activeforeground black \
+        -background {#d9d9d9} -font $::vTcl(fonts,vTcl:font9,object) \
+        -foreground {#000000} -highlightbackground {#d9d9d9} \
+        -highlightcolor black -text {Weather Location} 
+    vTcl:DefineAlias "$top.cpd41" "weather_location" vTcl:WidgetProc "main_page" 1
+    label $top.cpd42 \
+        -activebackground {#f9f9f9} -activeforeground black \
+        -background {#d9d9d9} -font $::vTcl(fonts,vTcl:font9,object) \
+        -foreground {#000000} -highlightbackground {#d9d9d9} \
+        -highlightcolor black -text {Weather Others} 
+    vTcl:DefineAlias "$top.cpd42" "weather_others" vTcl:WidgetProc "main_page" 1
+    button $top.cpd43 \
+        -activebackground {#d9d9d9} -activeforeground {#000000} \
+        -background {#d9d9d9} -foreground {#000000} \
+        -highlightbackground {#d9d9d9} -highlightcolor black -text {By Car} 
+    vTcl:DefineAlias "$top.cpd43" "traffic_quick_search1" vTcl:WidgetProc "main_page" 1
+    bind $top.cpd43 <Button-1> {
+        lambda e: weather_button(e)
+    }
+    button $top.cpd44 \
+        -activebackground {#d9d9d9} -activeforeground {#000000} \
+        -background {#d9d9d9} -foreground {#000000} \
+        -highlightbackground {#d9d9d9} -highlightcolor black \
+        -text {By Public Transit} 
+    vTcl:DefineAlias "$top.cpd44" "traffic_quick_search2" vTcl:WidgetProc "main_page" 1
+    bind $top.cpd44 <Button-1> {
+        lambda e: weather_button(e)
+    }
+    canvas $top.cpd47 \
+        -background {#d9d9d9} -closeenough 1.0 -height 128 \
+        -highlightbackground {#d9d9d9} -highlightcolor black \
+        -insertbackground black -relief ridge -selectbackground {#c4c4c4} \
+        -selectforeground black -width 143 
+    vTcl:DefineAlias "$top.cpd47" "weather_icon2" vTcl:WidgetProc "main_page" 1
+    label $top.cpd48 \
+        -activebackground {#f9f9f9} -activeforeground black \
+        -background {#d9d9d9} -font $::vTcl(fonts,vTcl:font9,object) \
+        -foreground {#000000} -highlightbackground {#d9d9d9} \
+        -highlightcolor black \
+        -image [vTcl:image:get_image [file join / Users minin0la Downloads photo_2017-09-23_22-08-40.jpg]] \
+        -justify left -text Traffic 
+    vTcl:DefineAlias "$top.cpd48" "weather_others1" vTcl:WidgetProc "main_page" 1
+    entry $top.ent49 \
+        -background white -font TkFixedFont -foreground {#000000} \
+        -insertbackground black -textvariable quick_search_entry 
+    vTcl:DefineAlias "$top.ent49" "traffic_search_entry" vTcl:WidgetProc "main_page" 1
     ###################
     # SETTING GEOMETRY
     ###################
     place $top.cpd40 \
-        -in $top -x 40 -y 380 -width 177 -height 42 -anchor nw \
-        -bordermode inside 
+        -in $top -x 310 -y 380 -width 157 -relwidth 0 -height 42 -relheight 0 \
+        -anchor nw -bordermode inside 
     place $top.cpd37 \
-        -in $top -x 170 -y 30 -width 431 -relwidth 0 -height 254 -relheight 0 \
+        -in $top -x 190 -y 70 -width 121 -relwidth 0 -height 94 -relheight 0 \
         -anchor nw -bordermode inside 
     place $top.cpd39 \
         -in $top -x 40 -y 350 -width 77 -relwidth 0 -height 24 -relheight 0 \
@@ -185,17 +389,44 @@ proc vTclWindow.top37 {base} {
     place $top.lab37 \
         -in $top -x 40 -y 430 -anchor nw -bordermode ignore 
     place $top.cpd38 \
-        -in $top -x 40 -y 460 -width 177 -height 42 -anchor nw \
-        -bordermode inside 
+        -in $top -x 40 -y 460 -width 107 -relwidth 0 -height 42 -relheight 0 \
+        -anchor nw -bordermode inside 
     place $top.cpd57 \
-        -in $top -x 230 -y 460 -width 177 -height 42 -anchor nw \
-        -bordermode inside 
+        -in $top -x 160 -y 460 -width 137 -relwidth 0 -height 42 -relheight 0 \
+        -anchor nw -bordermode inside 
     place $top.cpd58 \
-        -in $top -x 40 -y 540 -width 177 -height 42 -anchor nw \
-        -bordermode inside 
+        -in $top -x 40 -y 540 -width 107 -relwidth 0 -height 42 -relheight 0 \
+        -anchor nw -bordermode inside 
     place $top.cpd59 \
         -in $top -x 40 -y 510 -width 89 -height 24 -anchor nw \
         -bordermode inside 
+    place $top.can37 \
+        -in $top -x 40 -y 40 -width 143 -relwidth 0 -height 128 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.can37.cpd46 \
+        -in $top.can37 -x 104 -y 226 -width 143 -height 128 -anchor nw \
+        -bordermode inside 
+    place $top.cpd41 \
+        -in $top -x 190 -y 40 -width 411 -relwidth 0 -height 34 -relheight 0 \
+        -anchor nw -bordermode ignore 
+    place $top.cpd42 \
+        -in $top -x 310 -y 70 -width 221 -relwidth 0 -height 94 -relheight 0 \
+        -anchor nw -bordermode inside 
+    place $top.cpd43 \
+        -in $top -x 40 -y 380 -width 107 -relwidth 0 -height 42 -relheight 0 \
+        -anchor nw -bordermode inside 
+    place $top.cpd44 \
+        -in $top -x 160 -y 380 -width 137 -relwidth 0 -height 42 -relheight 0 \
+        -anchor nw -bordermode inside 
+    place $top.cpd47 \
+        -in $top -x 40 -y 200 -width 143 -height 128 -anchor nw \
+        -bordermode inside 
+    place $top.cpd48 \
+        -in $top -x 180 -y 200 -width 421 -relwidth 0 -height 124 \
+        -relheight 0 -anchor nw -bordermode inside 
+    place $top.ent49 \
+        -in $top -x 480 -y 382 -width 212 -relwidth 0 -height 37 -relheight 0 \
+        -anchor nw -bordermode ignore 
 
     vTcl:FireEvent $base <<Ready>>
 }

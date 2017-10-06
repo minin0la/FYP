@@ -5,7 +5,11 @@
 #    Sep 30, 2017 08:40:38 AM
 import sys
 import weather
-import manage_item
+import json
+import PIL.Image
+import PIL.ImageTk
+import urllib
+import traveltime
 
 try:
     from Tkinter import *
@@ -54,7 +58,7 @@ class FridgeBud:
         _compcolor = '#d9d9d9' # X11 color: 'gray85'
         _ana1color = '#d9d9d9' # X11 color: 'gray85' 
         _ana2color = '#d9d9d9' # X11 color: 'gray85' 
-        font9 = "-family {Al Bayan} -size 24 -weight normal -slant "  \
+        font9 = "-family {Al Bayan} -size 20 -weight normal -slant "  \
             "roman -underline 0 -overstrike 0"
         self.style = ttk.Style()
         if sys.platform == "win32":
@@ -65,9 +69,6 @@ class FridgeBud:
             [('selected', _compcolor), ('active',_ana2color)])
 
         # top.geometry("1024x600+139+157")
-        # wed, heg = top.winfo_screenwidth(), top.winfo_screenheight()
-        # top.geometry("%dx%d+0+0" % (wed, heg))
-        # top.attributes('-fullscreen', True)
         top.overrideredirect(True)
         top.geometry("{0}x{1}+0+0".format(top.winfo_screenwidth(), top.winfo_screenheight()))
         top.title("FridgeBud")
@@ -77,28 +78,28 @@ class FridgeBud:
 
 
 
-        self.weather_button = Button(top)
-        self.weather_button.place(relx=0.04, rely=0.63, height=42, width=177)
-        self.weather_button.configure(activebackground="#d9d9d9")
-        self.weather_button.configure(activeforeground="#000000")
-        self.weather_button.configure(background="#d9d9d9")
-        self.weather_button.configure(foreground="#000000")
-        self.weather_button.configure(highlightbackground="#d9d9d9")
-        self.weather_button.configure(highlightcolor="black")
-        self.weather_button.configure(text='''Weather''')
-        self.weather_button.bind('<Button-1>',lambda e:GUI_support.weather_button(e))
+        # self.weather_button = Button(top)
+        # self.weather_button.place(relx=0.04, rely=0.63, height=42, width=177)
+        # self.weather_button.configure(activebackground="#d9d9d9")
+        # self.weather_button.configure(activeforeground="#000000")
+        # self.weather_button.configure(background="#d9d9d9")
+        # self.weather_button.configure(foreground="#000000")
+        # self.weather_button.configure(highlightbackground="#d9d9d9")
+        # self.weather_button.configure(highlightcolor="black")
+        # self.weather_button.configure(text='''Weather''')
+        # self.weather_button.bind('<Button-1>',lambda e:GUI_support.weather_button(e))
 
-        self.information_box = Label(top)
-        self.information_box.place(relx=0.17, rely=0.05, height=254, width=431)
-        self.information_box.configure(activebackground="#f9f9f9")
-        self.information_box.configure(activeforeground="black")
-        self.information_box.configure(background="#d9d9d9")
-        self.information_box.configure(font=font9)
-        self.information_box.configure(foreground="#000000")
-        self.information_box.configure(highlightbackground="#d9d9d9")
-        self.information_box.configure(highlightcolor="black")
-        self.information_box.configure(text=weather.get_weather())
-        self.information_box.configure(width=431)
+        # self.information_box = Label(top)
+        # self.information_box.place(relx=0.17, rely=0.05, height=254, width=431)
+        # self.information_box.configure(activebackground="#f9f9f9")
+        # self.information_box.configure(activeforeground="black")
+        # self.information_box.configure(background="#d9d9d9")
+        # self.information_box.configure(font=font9)
+        # self.information_box.configure(foreground="#000000")
+        # self.information_box.configure(highlightbackground="#d9d9d9")
+        # self.information_box.configure(highlightcolor="black")
+        # self.information_box.configure(text=weather.get_weather())
+        # self.information_box.configure(width=431)
 
         self.information_label = Label(top)
         self.information_label.place(relx=0.04, rely=0.58, height=24, width=77)
@@ -174,7 +175,7 @@ class FridgeBud:
         self.setting_button.configure(highlightbackground="#d9d9d9")
         self.setting_button.configure(highlightcolor="black")
         self.setting_button.configure(text='''Settings''')
-        self.setting_button.bind('<Button-1>',lambda e:GUI_support.destroy_window())
+        self.setting_button.bind('<Button-1>',lambda e:GUI_support.settings())
 
         self.setting_label = Label(top)
         self.setting_label.place(relx=0.04, rely=0.85, height=24, width=89)
@@ -185,6 +186,132 @@ class FridgeBud:
         self.setting_label.configure(highlightbackground="#d9d9d9")
         self.setting_label.configure(highlightcolor="black")
         self.setting_label.configure(text='''Settings''')
+
+        self.weather_icon = Label(top)
+        self.weather_icon.place(relx=0.04, rely=0.05, relheight=0.21
+                , relwidth=0.14)
+        self.weather_icon.configure(activebackground="#f9f9f9")
+        self.weather_icon.configure(activeforeground="black")
+        self.weather_icon.configure(background="#d9d9d9")
+        self.weather_icon.configure(font=font9)
+        self.weather_icon.configure(foreground="#000000")
+        self.weather_icon.configure(highlightbackground="#d9d9d9")
+        self.weather_icon.configure(highlightcolor="black")
+        self.weather_icon.configure(anchor=CENTER)
+        icon_path = "Images/weather_icon/" + str(weather.get_weather_icon()) + ".gif"
+        img = PIL.Image.open(icon_path)
+        img = img.resize((150, 150), PIL.Image.ANTIALIAS)
+        self._img1 = PIL.ImageTk.PhotoImage(img)
+        self.weather_icon.configure(image=self._img1)
+        
+
+        self.weather_location = Label(top)
+        self.weather_location.place(relx=0.14, rely=0.05, height=34, width=411)
+        self.weather_location.configure(activebackground="#f9f9f9")
+        self.weather_location.configure(activeforeground="black")
+        self.weather_location.configure(background="#d9d9d9")
+        self.weather_location.configure(font=font9)
+        self.weather_location.configure(foreground="#000000")
+        self.weather_location.configure(highlightbackground="#d9d9d9")
+        self.weather_location.configure(highlightcolor="black")
+        self.weather_location.configure(justify=LEFT)
+        self.weather_location.configure(text=json.loads(weather.get_observation().to_JSON())["Location"]["name"])
+        self.weather_location.configure(width=411)
+
+        self.weather_others = Label(top)
+        self.weather_others.place(relx=0.33, rely=0.12, height=94, width=250)
+        self.weather_others.configure(activebackground="#f9f9f9")
+        self.weather_others.configure(activeforeground="black")
+        self.weather_others.configure(background="#d9d9d9")
+        self.weather_others.configure(font=font9)
+        self.weather_others.configure(foreground="#000000")
+        self.weather_others.configure(highlightbackground="#d9d9d9")
+        self.weather_others.configure(highlightcolor="black")
+        self.weather_others.configure(width=221)
+        self.weather_others.configure(justify=LEFT)
+        wind_speed = weather.get_weather().get_wind()                  # {'speed': 4.6, 'deg': 330}
+        humidity = weather.get_weather().get_humidity()
+        status = weather.get_weather().get_detailed_status() 
+        message = "{}\nHumidity: {}%\nWind Speed: {}m/s".format(status, humidity, wind_speed["speed"])
+        self.weather_others.configure(text=message)
+
+        self.traffic_location = Button(top)
+        self.traffic_location.place(relx=0.04, rely=0.63, height=42
+                , width=107)
+        self.traffic_location.configure(activebackground="#d9d9d9")
+        self.traffic_location.configure(activeforeground="#000000")
+        self.traffic_location.configure(background="#d9d9d9")
+        self.traffic_location.configure(foreground="#000000")
+        self.traffic_location.configure(highlightbackground="#d9d9d9")
+        self.traffic_location.configure(highlightcolor="black")
+        self.traffic_location.configure(text='''Location 1''')
+        self.traffic_location.configure(width=107)
+        self.traffic_location.bind('<Button-1>',lambda e:GUI_support.weather_button(e))
+
+        self.traffic_location2 = Button(top)
+        self.traffic_location2.place(relx=0.16, rely=0.63, height=42
+                , width=107)
+        self.traffic_location2.configure(activebackground="#d9d9d9")
+        self.traffic_location2.configure(activeforeground="#000000")
+        self.traffic_location2.configure(background="#d9d9d9")
+        self.traffic_location2.configure(foreground="#000000")
+        self.traffic_location2.configure(highlightbackground="#d9d9d9")
+        self.traffic_location2.configure(highlightcolor="black")
+        self.traffic_location2.configure(text='''Location 2''')
+        self.traffic_location2.configure(width=137)
+        self.traffic_location2.bind('<Button-1>',lambda e:GUI_support.weather_button(e))
+
+        self.traffic_icon = Label(top)
+        self.traffic_icon.place(relx=0.04, rely=0.27, relheight=0.30
+                , relwidth=0.14)
+        self.traffic_icon.configure(background="#d9d9d9")
+        self.traffic_icon.configure(highlightbackground="#d9d9d9")
+        self.traffic_icon.configure(highlightcolor="black")
+        self.traffic_icon.configure(activebackground="#f9f9f9")
+        self.traffic_icon.configure(activeforeground="black")
+        self.traffic_icon.configure(anchor=CENTER)
+        icon_path = "Images/traffic.gif"
+        img = PIL.Image.open(icon_path)
+        img = img.resize((150, 150), PIL.Image.ANTIALIAS)
+        self._img2 = PIL.ImageTk.PhotoImage(img)
+        self.traffic_icon.configure(image=self._img2)
+
+        self.traffic_label = Label(top)
+        self.traffic_label.place(relx=0.18, rely=0.28, height=210, width=470)
+        self.traffic_label.configure(activebackground="#f9f9f9")
+        self.traffic_label.configure(activeforeground="black")
+        self.traffic_label.configure(background="#d9d9d9")
+        self.traffic_label.configure(font=font9)
+        self.traffic_label.configure(foreground="#000000")
+        self.traffic_label.configure(highlightbackground="#d9d9d9")
+        self.traffic_label.configure(highlightcolor="black")
+        self.traffic_label.configure(justify=LEFT)
+        self.traffic_label.configure(text=traveltime.get_travel_time())
+        self.traffic_label.configure(width=421)
+
+        # self.traffic_search_entry = Entry(top)
+        # self.traffic_search_entry.place(relx=0.47, rely=0.64, relheight=0.06
+        #         , relwidth=0.21)
+        # self.traffic_search_entry.configure(background="white")
+        # self.traffic_search_entry.configure(font="TkFixedFont")
+        # self.traffic_search_entry.configure(foreground="#000000")
+        # self.traffic_search_entry.configure(insertbackground="black")
+        # # self.traffic_search_entry.configure(textvariable=GUI_support.quick_search_entry)
+        # self.traffic_search_entry.configure(width=212)
+
+        self.weather_temp = Label(top)
+        self.weather_temp.place(relx=0.22, rely=0.12, height=94, width=121)
+        self.weather_temp.configure(activebackground="#f9f9f9")
+        self.weather_temp.configure(activeforeground="black")
+        self.weather_temp.configure(background="#d9d9d9")
+        self.weather_temp.configure(font=font9)
+        self.weather_temp.configure(foreground="#000000")
+        self.weather_temp.configure(highlightbackground="#d9d9d9")
+        self.weather_temp.configure(highlightcolor="black")
+        self.weather_temp.configure(justify=LEFT)
+        temperature = weather.get_weather().get_temperature('celsius')['temp']
+        self.weather_temp.configure(text=str(temperature) + " C°")
+        self.weather_temp.configure(width=121)
 
 
 
