@@ -55,8 +55,8 @@ class FridgeBud:
         _ana1color = '#d9d9d9' # X11 color: 'gray85' 
         _ana2color = '#d9d9d9' # X11 color: 'gray85' 
 
-        top.overrideredirect(True)
-        top.geometry("{0}x{1}+0+0".format(top.winfo_screenwidth(), top.winfo_screenheight()))
+        top.geometry("1024x600+139+157")
+        top.wm_attributes('-fullscreen', 'True')
         top.title("FridgeBud")
         top.configure(background="#d9d9d9")
 

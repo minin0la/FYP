@@ -68,9 +68,8 @@ class FridgeBud:
         self.style.map('.',background=
             [('selected', _compcolor), ('active',_ana2color)])
 
-        # top.geometry("1024x600+139+157")
-        top.overrideredirect(True)
-        top.geometry("{0}x{1}+0+0".format(top.winfo_screenwidth(), top.winfo_screenheight()))
+        top.geometry("1024x600+139+157")
+        top.wm_attributes('-fullscreen', 'True')
         top.title("FridgeBud")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")

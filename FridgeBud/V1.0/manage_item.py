@@ -60,8 +60,9 @@ class FridgeBud:
         font10 = "-family {Al Bayan} -size 24 -weight bold -slant "  \
             "roman -underline 0 -overstrike 0"
 
-        top.overrideredirect(True)
-        top.geometry("{0}x{1}+0+0".format(top.winfo_screenwidth(), top.winfo_screenheight()))
+        top.geometry("1024x600+139+157")
+        top.wm_attributes('-fullscreen', 'True')
+        # top.geometry("{0}x{1}+0+0".format(top.winfo_screenwidth(), top.winfo_screenheight()))
         top.title("FridgeBud")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
