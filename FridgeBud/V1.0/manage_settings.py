@@ -56,6 +56,7 @@ class FridgeBud:
 
         top.geometry("1024x600+139+157")
         top.wm_attributes('-fullscreen', 'True')
+        top.wm_attributes('-topmost', 'False')
         top.title("FridgeBud")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
