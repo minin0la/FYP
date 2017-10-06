@@ -12,6 +12,7 @@ import time
 import datetime
 import asyncio
 import time
+import subprocess
 
 try:
     from Tkinter import *
@@ -162,6 +163,11 @@ def destroy_window():
     global top_level
     top_level.destroy()
     top_level = None
+
+def toggleKeyboard():
+    p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)
+    if not "" == p.stderr.readline():
+        subprocess.Popen(['florence'], shell=True) 
 
 def main():
     global selected, days, months, years
