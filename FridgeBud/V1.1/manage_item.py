@@ -362,7 +362,6 @@ class FridgeBud:
         self.other_item_entry.configure(insertbackground="black")
         self.other_item_entry.configure(textvariable=manage_item_support.other_item_text)
         self.other_item_entry.configure(width=372)
-        self.other_item_entry.bind('<FocusIn>', manage_item_support.toggleKeyboard())  
 
         self.add_other_button = Button(top)
         self.add_other_button.place(relx=0.43, rely=0.87, height=62, width=177)
