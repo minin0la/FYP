@@ -54,8 +54,16 @@ class Popup:
         _ana1color = '#d9d9d9' # X11 color: 'gray85' 
         _ana2color = '#d9d9d9' # X11 color: 'gray85' 
 
-        top.geometry("600x121+650+150")
-        top.title("New Toplevel 1")
+            # get screen width and height
+        screen_width = top.winfo_screenwidth()
+        screen_height = top.winfo_screenheight()
+        width = 600
+        height = 121
+        # calculate position x and y coordinates
+        x = (screen_width/2) - (width/2)
+        y = (screen_height/2) - (height/2)
+        top.geometry('%dx%d+%d+%d' % (width, height, x, y))
+        top.title("Input")
         top.configure(background="#d9d9d9")
 
 
