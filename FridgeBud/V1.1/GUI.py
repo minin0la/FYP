@@ -33,8 +33,6 @@ def vp_start_gui():
     root = Tk()
     top = FridgeBud (root)
     GUI_support.init(root, top)
-    os.system("florence")
-    os.system("florence hide")
     root.mainloop()
     # root.overrideredirect(1)
 

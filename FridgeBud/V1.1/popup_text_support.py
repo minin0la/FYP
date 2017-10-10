@@ -22,8 +22,16 @@ except ImportError:
 def OK_Button(p1):
     value = w.Entry1.get()
     import manage_item_support
+    toggleKeyboard()
     manage_item_support.returnname(value)
     
+
+import subprocess
+
+def toggleKeyboard():
+    p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)
+    if not "" == p.stderr.readline():
+        subprocess.Popen(['florence'], shell=True)
 
 def init(top, gui, *args, **kwargs):
     global w, top_level, root

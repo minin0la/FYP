@@ -183,7 +183,7 @@ def popup():
     togglesmallscreen()
     GUI_support.togglesmallscreen()
     popup_text.create_Popup(root)
-    os.system("florence show")
+    toggleKeyboard()
 
 def toggleKeyboard():
     p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)
