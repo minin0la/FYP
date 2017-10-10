@@ -79,26 +79,14 @@ proc vTclWindow.top60 {base} {
         -activebackground {#d9d9d9} -activeforeground {#000000} \
         -background {#d9d9d9} -foreground {#000000} \
         -highlightbackground {#d9d9d9} -highlightcolor black \
-        -text {Set Work Location} 
-    vTcl:DefineAlias "$top.but62" "work_set_button" vTcl:WidgetProc "manage_settings" 1
+        -text {Set Location 1} 
+    vTcl:DefineAlias "$top.but62" "Location_1_set" vTcl:WidgetProc "manage_settings" 1
     button $top.cpd63 \
         -activebackground {#d9d9d9} -activeforeground {#000000} \
         -background {#d9d9d9} -foreground {#000000} \
         -highlightbackground {#d9d9d9} -highlightcolor black \
-        -text {Set Weather Location} 
-    vTcl:DefineAlias "$top.cpd63" "weather_set_button" vTcl:WidgetProc "manage_settings" 1
-    entry $top.cpd65 \
-        -background white -font TkFixedFont -foreground {#000000} \
-        -highlightbackground {#d9d9d9} -highlightcolor black \
-        -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black 
-    vTcl:DefineAlias "$top.cpd65" "weather_entry" vTcl:WidgetProc "manage_settings" 1
-    entry $top.cpd66 \
-        -background white -font TkFixedFont -foreground {#000000} \
-        -highlightbackground {#d9d9d9} -highlightcolor black \
-        -insertbackground black -selectbackground {#c4c4c4} \
-        -selectforeground black 
-    vTcl:DefineAlias "$top.cpd66" "work_entry" vTcl:WidgetProc "manage_settings" 1
+        -text {Set Location 2} 
+    vTcl:DefineAlias "$top.cpd63" "Location_2_set" vTcl:WidgetProc "manage_settings" 1
     button $top.cpd76 \
         -activebackground {#d9d9d9} -activeforeground {#000000} \
         -background {#d9d9d9} -foreground {#000000} \
@@ -115,29 +103,37 @@ proc vTclWindow.top60 {base} {
         -text {Quit Application} 
     vTcl:DefineAlias "$top.cpd37" "quit_button" vTcl:WidgetProc "manage_settings" 1
     label $top.lab38 \
+        -activebackground {#f9f9f9} -activeforeground black \
         -background {#d9d9d9} -foreground {#000000} \
-        -text {Current Work Location} 
+        -highlightbackground {#d9d9d9} -highlightcolor black \
+        -text {Current Location 1} 
     vTcl:DefineAlias "$top.lab38" "current_work_label" vTcl:WidgetProc "manage_settings" 1
     label $top.cpd39 \
         -activebackground {#f9f9f9} -activeforeground black \
         -background {#d9d9d9} -foreground {#000000} \
         -highlightbackground {#d9d9d9} -highlightcolor black \
-        -text {Current Weather Location} 
+        -text {Current Location 2} 
     vTcl:DefineAlias "$top.cpd39" "current_weather_label" vTcl:WidgetProc "manage_settings" 1
+    button $top.cpd38 \
+        -activebackground {#d9d9d9} -activeforeground {#000000} \
+        -background {#d9d9d9} -foreground {#000000} \
+        -highlightbackground {#d9d9d9} -highlightcolor black \
+        -text {Set Country} 
+    vTcl:DefineAlias "$top.cpd38" "country_set" vTcl:WidgetProc "manage_settings" 1
+    label $top.cpd40 \
+        -activebackground {#f9f9f9} -activeforeground black \
+        -background {#d9d9d9} -foreground {#000000} \
+        -highlightbackground {#d9d9d9} -highlightcolor black \
+        -text {Current Country} 
+    vTcl:DefineAlias "$top.cpd40" "current_work_label1" vTcl:WidgetProc "manage_settings" 1
     ###################
     # SETTING GEOMETRY
     ###################
     place $top.but62 \
-        -in $top -x 80 -y 130 -width 167 -relwidth 0 -height 32 -relheight 0 \
+        -in $top -x 80 -y 120 -width 167 -relwidth 0 -height 42 -relheight 0 \
         -anchor nw -bordermode ignore 
     place $top.cpd63 \
-        -in $top -x 80 -y 170 -width 167 -relwidth 0 -height 32 -relheight 0 \
-        -anchor nw -bordermode inside 
-    place $top.cpd65 \
-        -in $top -x 260 -y 170 -width 282 -relwidth 0 -height 27 -relheight 0 \
-        -anchor nw -bordermode inside 
-    place $top.cpd66 \
-        -in $top -x 260 -y 130 -width 282 -relwidth 0 -height 27 -relheight 0 \
+        -in $top -x 80 -y 170 -width 167 -relwidth 0 -height 42 -relheight 0 \
         -anchor nw -bordermode inside 
     place $top.cpd76 \
         -in $top -x 800 -y 530 -width 167 -height 32 -anchor nw \
@@ -146,10 +142,16 @@ proc vTclWindow.top60 {base} {
         -in $top -x 620 -y 530 -width 167 -height 32 -anchor nw \
         -bordermode inside 
     place $top.lab38 \
-        -in $top -x 610 -y 130 -width 341 -relwidth 0 -height 24 -relheight 0 \
+        -in $top -x 270 -y 130 -width 701 -relwidth 0 -height 24 -relheight 0 \
         -anchor nw -bordermode ignore 
     place $top.cpd39 \
-        -in $top -x 610 -y 170 -width 341 -height 24 -anchor nw \
+        -in $top -x 270 -y 180 -width 701 -relwidth 0 -height 24 -relheight 0 \
+        -anchor nw -bordermode inside 
+    place $top.cpd38 \
+        -in $top -x 80 -y 70 -width 167 -height 42 -anchor nw \
+        -bordermode inside 
+    place $top.cpd40 \
+        -in $top -x 270 -y 80 -width 701 -height 24 -anchor nw \
         -bordermode inside 
 
     vTcl:FireEvent $base <<Ready>>

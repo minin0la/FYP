@@ -86,7 +86,7 @@ class Popup:
         self.OK.configure(highlightcolor="black")
         self.OK.configure(text='''OK''')
         self.OK.configure(width=277)
-        self.OK.bind('<Button-1>', lambda e: popup_text_support.manage_item_support(e))
+        self.OK.bind('<Button-1>', lambda e: popup_text_support.country(e))
 
         self.CANCEL = Button(top)
         self.CANCEL.place(relx=0.52, rely=0.5, height=42, width=277)

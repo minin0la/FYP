@@ -26,7 +26,6 @@ except ImportError:
 
 import GUI_support
 
-
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
@@ -76,7 +75,8 @@ class FridgeBud:
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
         top.configure(highlightcolor="black")
-
+        GUI_support.check_files()
+        GUI_support.check_folders()
 
 
         # self.weather_button = Button(top)
@@ -247,7 +247,7 @@ class FridgeBud:
         self.traffic_location.configure(highlightcolor="black")
         self.traffic_location.configure(text='''Location 1''')
         self.traffic_location.configure(width=107)
-        self.traffic_location.bind('<Button-1>',lambda e:GUI_support.weather_button(e))
+        self.traffic_location.bind('<Button-1>',lambda e:GUI_support.show_traffic_location_1(e))
 
         self.traffic_location2 = Button(top)
         self.traffic_location2.place(relx=0.16, rely=0.63, height=42
@@ -260,7 +260,7 @@ class FridgeBud:
         self.traffic_location2.configure(highlightcolor="black")
         self.traffic_location2.configure(text='''Location 2''')
         self.traffic_location2.configure(width=137)
-        self.traffic_location2.bind('<Button-1>',lambda e:GUI_support.weather_button(e))
+        self.traffic_location2.bind('<Button-1>',lambda e:GUI_support.show_traffic_location_2(e))
 
         self.traffic_icon = Label(top)
         self.traffic_icon.place(relx=0.04, rely=0.27, relheight=0.30

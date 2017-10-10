@@ -19,12 +19,35 @@ except ImportError:
     import tkinter.ttk as ttk
     py3 = 1
 
-def OK_Button(p1):
+def manage_item_support(p1):
     value = w.Entry1.get()
     import manage_item_support
     manage_item_support.returnname(value)
     destroy_window()
-    
+
+def country(p1):
+    value = w.Entry1.get()
+    import manage_settings_support
+    manage_settings_support.country(value)
+    destroy_window() 
+
+def home(p1):
+    value = w.Entry1.get()
+    import manage_settings_support
+    manage_settings_support.home(value)
+    destroy_window() 
+
+def location1(p1):
+    value = w.Entry1.get()
+    import manage_settings_support
+    manage_settings_support.location1(value)
+    destroy_window() 
+
+def location2(p1):
+    value = w.Entry1.get()
+    import manage_settings_support
+    manage_settings_support.location2(value)
+    destroy_window() 
 
 import subprocess
 

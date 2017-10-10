@@ -15,6 +15,7 @@ import asyncio
 import manage_item
 import delete_item
 import manage_settings
+import traveltime
 
 try:
     from Tkinter import *
@@ -123,6 +124,18 @@ def remove_item():
 def settings():
     manage_settings.create_FridgeBud(root)
 
+def get_traffic():
+    value = traveltime.get_travel_time()
+    w.traffic_label.configure(text=value)
+
+def show_traffic_location_1(p1):
+    value = traveltime.get_travel_time()
+    w.traffic_label.configure(text=value)
+
+def show_traffic_location_2(p1):
+    value = traveltime.get_travel_time2()
+    w.traffic_label.configure(text=value)
+
 def check_folders():
     if not os.path.exists("data/"):
         print("Creating data/ folder...")
@@ -137,10 +150,7 @@ def check_files():
     f = "data/settings.json"
     if not fileIO(f, "check"):
         print("Creating empty settings.json...")
-        fileIO(f, "save", [{"Country": "Singapore", "Home_Postal_Code": "648324", "Work_Postal_Code": "139651"}])
-
-check_files()
-check_folders()
+        fileIO(f, "save", [{"Country": "Singapore", "Home": "648324 Singapore", "Location 1": "648324 Singapore", "Location 2": "139651 Singapore"}])
 
 if __name__ == '__main__':
     import GUI

@@ -140,13 +140,7 @@ def get_time():
     result = datetime.date.today() + datetime.timedelta(seconds=result)
     return result
 
-def returnname(value):
-    global selected
-    selected = value
-    show_info()
-    GUI_support.togglebigscreen()
-    global top_level
-    top_level.wm_state("normal")
+
 
 def show_info():
     if selected == None:
@@ -172,11 +166,13 @@ def togglesmallscreen():
     top_level.wm_state("iconic")
     # top_level.geometry("320x240")
 
-def destroy_window():
-    # Function which closes the window.
+def returnname(value):
+    global selected
+    selected = value
+    show_info()
+    GUI_support.togglebigscreen()
     global top_level
-    top_level.destroy()
-    top_level = None
+    top_level.wm_state("normal")
 
 def popup():
     togglesmallscreen()
@@ -188,6 +184,14 @@ def toggleKeyboard():
     p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)
     if not "" == p.stderr.readline():
         subprocess.Popen(['florence'], shell=True) 
+
+def destroy_window():
+    # Function which closes the window.
+    global top_level
+    top_level.destroy()
+    top_level = None
+
+
 
 
 def main():
