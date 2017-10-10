@@ -144,7 +144,7 @@ def returnname(value):
     global selected
     selected = value
     show_info()
-    os.system("florence hide")
+    toggleKeyboard()
     GUI_support.togglebigscreen()
     global top_level
     top_level.wm_state("zoomed")
