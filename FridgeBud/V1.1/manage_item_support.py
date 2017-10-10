@@ -144,10 +144,9 @@ def returnname(value):
     global selected
     selected = value
     show_info()
-    toggleKeyboard()
     GUI_support.togglebigscreen()
     global top_level
-    top_level.wm_state("zoomed")
+    top_level.wm_state("normal")
 
 def show_info():
     if selected == None:

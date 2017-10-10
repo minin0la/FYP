@@ -61,7 +61,7 @@ def togglesmallscreen():
 
 def togglebigscreen():
     global top_level
-    top_level.wm_state("zoomed")
+    top_level.wm_state("normal")
 
 def refresh():
     w.Scrolledlistbox1.delete(0, END)

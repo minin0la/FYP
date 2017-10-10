@@ -23,6 +23,7 @@ def OK_Button(p1):
     value = w.Entry1.get()
     import manage_item_support
     manage_item_support.returnname(value)
+    destroy_window()
     
 
 import subprocess
