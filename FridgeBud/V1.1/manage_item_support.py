@@ -144,6 +144,7 @@ def returnname(value):
     global selected
     selected = value
     show_info()
+    os.system("florence hide")
     GUI_support.togglebigscreen()
     global top_level
     top_level.wm_state("zoomed")
@@ -182,7 +183,7 @@ def popup():
     togglesmallscreen()
     GUI_support.togglesmallscreen()
     popup_text.create_Popup(root)
-    os.system('florence')
+    os.system("florence show")
 
 def toggleKeyboard():
     p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)

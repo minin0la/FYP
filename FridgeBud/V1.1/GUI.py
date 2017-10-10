@@ -10,6 +10,7 @@ import PIL.Image
 import PIL.ImageTk
 import urllib
 import traveltime
+import os
 
 try:
     from Tkinter import *
@@ -25,12 +26,15 @@ except ImportError:
 
 import GUI_support
 
+
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
     root = Tk()
     top = FridgeBud (root)
     GUI_support.init(root, top)
+    os.system("florence")
+    os.system("florence hide")
     root.mainloop()
     # root.overrideredirect(1)
 
