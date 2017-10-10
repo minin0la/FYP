@@ -182,7 +182,7 @@ def popup():
     togglesmallscreen()
     GUI_support.togglesmallscreen()
     popup_text.create_Popup(root)
-    os.system("matchbox-keyboard")
+    os.system('florence')
 
 def toggleKeyboard():
     p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)
