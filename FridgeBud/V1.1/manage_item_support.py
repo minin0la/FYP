@@ -15,6 +15,7 @@ import time
 import subprocess
 import popup_text
 import GUI_support
+import subprocess
 
 try:
     from Tkinter import *

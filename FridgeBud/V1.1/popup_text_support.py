@@ -6,6 +6,7 @@
 
 
 import sys
+import subprocess
 
 try:
     from Tkinter import *
@@ -48,8 +49,6 @@ def location2(p1):
     import manage_settings_support
     manage_settings_support.location2(value)
     destroy_window() 
-
-import subprocess
 
 def toggleKeyboard():
     p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)
