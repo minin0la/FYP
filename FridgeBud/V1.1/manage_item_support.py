@@ -143,6 +143,8 @@ def returnname(value):
     global selected
     selected = value
     show_info()
+    global top_level
+    top_level.wm_state("zoomed")
 
 def show_info():
     if selected == None:
@@ -163,6 +165,11 @@ def init(top, gui, *args, **kwargs):
     root = top
     main()
 
+def togglesmallscreen():
+    global top_level
+    top_level.wm_state("iconic")
+    # top_level.geometry("320x240")
+
 def destroy_window():
     # Function which closes the window.
     global top_level
@@ -170,7 +177,9 @@ def destroy_window():
     top_level = None
 
 def popup():
+    togglesmallscreen()
     popup_text.create_Popup(root)
+    os.system("matchbox-keyboard")
 
 def toggleKeyboard():
     p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)

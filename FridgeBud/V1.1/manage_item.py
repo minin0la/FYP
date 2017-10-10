@@ -61,8 +61,6 @@ class FridgeBud:
 
         top.geometry("1024x600+139+157")
         top.wm_attributes('-fullscreen', 'True')
-        top.wm_attributes('-topmost', 'False')
-        # top.geometry("{0}x{1}+0+0".format(top.winfo_screenwidth(), top.winfo_screenheight()))
         top.title("FridgeBud")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
@@ -195,7 +193,7 @@ class FridgeBud:
         self.milk_button.configure(foreground="#000000")
         self.milk_button.configure(highlightbackground="#d9d9d9")
         self.milk_button.configure(highlightcolor="black")
-        img = PIL.Image.open("Milk.jpg")
+        img = PIL.Image.open("Images/Milk.jpg")
         img = img.resize((152, 177), PIL.Image.ANTIALIAS)
         self._img1 = PIL.ImageTk.PhotoImage(img)
         self.milk_button.configure(image=self._img1)
