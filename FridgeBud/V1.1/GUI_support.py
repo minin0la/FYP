@@ -55,6 +55,14 @@ def weather_button(p1):
 def set_text(text):
     w.information_box.configure(text=text)
 
+def togglesmallscreen():
+    global top_level
+    top_level.wm_state("iconic")
+
+def togglebigscreen():
+    global top_level
+    top_level.wm_state("zoomed")
+
 def refresh():
     w.Scrolledlistbox1.delete(0, END)
     result = ""

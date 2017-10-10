@@ -14,6 +14,7 @@ import asyncio
 import time
 import subprocess
 import popup_text
+import GUI_support
 
 try:
     from Tkinter import *
@@ -143,6 +144,7 @@ def returnname(value):
     global selected
     selected = value
     show_info()
+    GUI_support.togglebigscreen()
     global top_level
     top_level.wm_state("zoomed")
 
@@ -178,6 +180,7 @@ def destroy_window():
 
 def popup():
     togglesmallscreen()
+    GUI_support.togglesmallscreen()
     popup_text.create_Popup(root)
     os.system("matchbox-keyboard")
 
