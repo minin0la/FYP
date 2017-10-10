@@ -61,7 +61,7 @@ class Popup:
         height = 121
         # calculate position x and y coordinates
         x = (screen_width/2) - (width/2)
-        y = (screen_height/2) - (height/2)
+        y = (screen_height/2) - (height/2) - 300
         top.geometry('%dx%d+%d+%d' % (width, height, x, y))
         top.title("Input")
         top.configure(background="#d9d9d9")
