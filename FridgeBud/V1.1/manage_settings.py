@@ -112,7 +112,7 @@ class FridgeBud:
         self.quit_button.place(relx=0.61, rely=0.88, height=32, width=167)
         self.quit_button.configure(activebackground="#d9d9d9")
         self.quit_button.configure(activeforeground="#000000")
-        self.quit_button.configure(background="#d9d9d9")
+        self.quit_button.configure(background="#fb0106")
         self.quit_button.configure(foreground="#000000")
         self.quit_button.configure(highlightbackground="#d9d9d9")
         self.quit_button.configure(highlightcolor="black")
