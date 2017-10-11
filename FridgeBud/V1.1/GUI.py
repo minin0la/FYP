@@ -330,10 +330,7 @@ class FridgeBud:
         # ... then shrink it until it fits
         while size > 1 and self.custom_font.measure(text) > event.width:
             size -= 1
-            print(size)
             self.custom_font.configure(size=size)
-        size += 10
-        self.custom_font.configure(size=size)
 
 
 # The following code is added to facilitate the Scrolled widgets you specified.
