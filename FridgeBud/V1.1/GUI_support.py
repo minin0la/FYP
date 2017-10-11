@@ -103,6 +103,7 @@ def main():
     w.traffic_label.configure(text=value)
     w.traffic_label_location.configure(text=location)
     w.traffic_length = location
+    w.traffic_status_length = value
     w.location_font_size()
     w.traffic_font_size()
 
