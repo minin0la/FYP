@@ -75,8 +75,8 @@ class FridgeBud:
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
         top.configure(highlightcolor="black")
-        GUI_support.check_files()
         GUI_support.check_folders()
+        GUI_support.check_files()
 
 
         # self.weather_button = Button(top)
