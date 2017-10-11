@@ -167,6 +167,18 @@ class FridgeBud:
         self.remove_item_button.configure(text='''Remove item''')
         self.remove_item_button.bind('<Button-1>',lambda e:GUI_support.remove_item())
 
+        self.send_to_telegram = Button(top)
+        self.send_to_telegram.place(relx=0.40, rely=0.77, height=42
+                , width=177)
+        self.send_to_telegram.configure(activebackground="#d9d9d9")
+        self.send_to_telegram.configure(activeforeground="#000000")
+        self.send_to_telegram.configure(background="#00bfff")
+        self.send_to_telegram.configure(foreground="#000000")
+        self.send_to_telegram.configure(highlightbackground="#d9d9d9")
+        self.send_to_telegram.configure(highlightcolor="black")
+        self.send_to_telegram.configure(text='''Send to Telegram''')
+        self.send_to_telegram.bind('<Button-1>',lambda e:GUI_support.send_to_telegram())
+
         self.setting_button = Button(top)
         self.setting_button.place(relx=0.04, rely=0.9, height=42, width=177)
         self.setting_button.configure(activebackground="#d9d9d9")

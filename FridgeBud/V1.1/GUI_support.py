@@ -153,6 +153,22 @@ def show_traffic_location_2(p1):
     w.location_font_size()
     w.traffic_font_size()
 
+def send_to_telegram():
+    import requests
+    result = ""
+    i = 1
+    lists = fileIO("data/list.json", "load")
+    for the_list in lists:
+        result = result + "{}. {}\n".format(i, the_list['Name'])
+        dayleft = int(the_list['Date']) - datetime.date.today().day
+        if datetime.date.today() == datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])):
+            result = result + "Expired ({})\n".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
+        else:
+            result = result + "Expiring on {}\n".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
+        i = i + 1
+    content = {"value1": result}
+    requests.post("https://maker.ifttt.com/trigger/FridgeBud_Item/with/key/d9O5pfQ2QslLb8AHONzshC", json=content)
+
 def check_folders():
     if not os.path.exists("data/"):
         print("Creating data/ folder...")
