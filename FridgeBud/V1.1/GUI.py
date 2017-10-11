@@ -329,21 +329,19 @@ class FridgeBud:
         temperature = weather.get_weather().get_temperature('celsius')['temp']
         self.weather_temp.configure(text=str(temperature) + " C")
         self.weather_temp.configure(width=121)
+
     def traffic_font_size(self):
         text = self.traffic_status_length
         # first, grow the font until the text is too big,
         size = self.custom_font.actual("size")
         while size < 600:
             size += 1
-            print(size)
             self.custom_font.configure(size=size)
         # ... then shrink it until it fits
         while size > 1 and self.custom_font.measure(text) >= 600:
             size -= 5
-
-            print(size)
             self.custom_font.configure(size=size)
-        print(self.custom_font.measure(text))
+
     def location_font_size(self):
         text = self.traffic_length
         # first, grow the font until the text is too big,
