@@ -157,7 +157,6 @@ def destroy_window():
     global top_level
     top_level.destroy()
     top_level = None
-    GUI_support.get_traffic()
 
 if __name__ == '__main__':
     import manage_settings
