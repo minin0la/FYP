@@ -70,7 +70,7 @@ class FridgeBud:
             [('selected', _compcolor), ('active',_ana2color)])
 
         top.geometry("1024x600+139+157")
-        # top.attributes('-fullscreen', 'True')
+        top.attributes('-fullscreen', 'True')
         top.title("FridgeBud")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
