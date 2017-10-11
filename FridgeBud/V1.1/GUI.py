@@ -70,7 +70,7 @@ class FridgeBud:
             [('selected', _compcolor), ('active',_ana2color)])
 
         top.geometry("1024x600+139+157")
-        top.attributes('-fullscreen', 'True')
+        # top.attributes('-fullscreen', 'True')
         top.title("FridgeBud")
         top.configure(background="#d9d9d9")
         top.configure(highlightbackground="#d9d9d9")
@@ -282,14 +282,21 @@ class FridgeBud:
         self.traffic_label.configure(activebackground="#f9f9f9")
         self.traffic_label.configure(activeforeground="black")
         self.traffic_label.configure(background="#d9d9d9")
-        self.traffic_label.configure(font=font9)
+        # self.traffic_label.configure(font=font9)
         self.traffic_label.configure(foreground="#000000")
         self.traffic_label.configure(highlightbackground="#d9d9d9")
         self.traffic_label.configure(highlightcolor="black")
         self.traffic_label.configure(justify=LEFT)
-        self.traffic_label.configure(text=traveltime.get_travel_time())
-        self.traffic_label.configure(width=421)
+        text = traveltime.get_travel_time()
+        self.traffic_label.configure(text=text)
+        # self.traffic_label.configure(width=421)
 
+        import tkinter.font
+        original_font = tkinter.font.nametofont(self.traffic_label.cget("font"))
+        self.custom_font = tkinter.font.Font()
+        self.custom_font.configure(**original_font.configure())
+        self.traffic_label.configure(font=self.custom_font)
+        self.traffic_label.bind("<Configure>", self._on_configure)
         # self.traffic_search_entry = Entry(top)
         # self.traffic_search_entry.place(relx=0.47, rely=0.64, relheight=0.06
         #         , relwidth=0.21)
@@ -313,7 +320,20 @@ class FridgeBud:
         temperature = weather.get_weather().get_temperature('celsius')['temp']
         self.weather_temp.configure(text=str(temperature) + " C")
         self.weather_temp.configure(width=121)
-
+    def _on_configure(self, event):
+        text = self.traffic_label.cget("text")
+        # first, grow the font until the text is too big,
+        size = self.custom_font.actual("size")
+        while size < event.width:
+            size += 1
+            self.custom_font.configure(size=size)
+        # ... then shrink it until it fits
+        while size > 1 and self.custom_font.measure(text) > event.width:
+            size -= 1
+            print(size)
+            self.custom_font.configure(size=size)
+        size += 10
+        self.custom_font.configure(size=size)
 
 
 # The following code is added to facilitate the Scrolled widgets you specified.
