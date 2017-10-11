@@ -216,6 +216,10 @@ proc vTclWindow.top37 {base} {
         -foreground {#000000} -highlightbackground {#d9d9d9} \
         -highlightcolor black -justify left -text Traffic 
     vTcl:DefineAlias "$top.cpd48" "weather_others1" vTcl:WidgetProc "main_page" 1
+    entry $top.ent49 \
+        -background white -font TkFixedFont -foreground {#000000} \
+        -insertbackground black -textvariable quick_search_entry 
+    vTcl:DefineAlias "$top.ent49" "traffic_search_entry" vTcl:WidgetProc "main_page" 1
     ###################
     # SETTING GEOMETRY
     ###################
@@ -272,6 +276,9 @@ proc vTclWindow.top37 {base} {
     place $top.cpd48 \
         -in $top -x 180 -y 200 -width 421 -relwidth 0 -height 124 \
         -relheight 0 -anchor nw -bordermode inside 
+    place $top.ent49 \
+        -in $top -x 480 -y 382 -width 212 -relwidth 0 -height 37 -relheight 0 \
+        -anchor nw -bordermode ignore 
 
     vTcl:FireEvent $base <<Ready>>
 }

@@ -150,17 +150,31 @@ proc vTclWindow.top37 {base} {
     bind $top.cpd57 <Button-1> {
         lambda e: manage_item_button(e)
     }
+    button $top.cpd58 \
+        -activebackground {#d9d9d9} -activeforeground {#000000} \
+        -background {#d9d9d9} -foreground {#000000} \
+        -highlightbackground {#d9d9d9} -highlightcolor black -text {Add item} 
+    vTcl:DefineAlias "$top.cpd58" "manage_item_button2" vTcl:WidgetProc "main_page" 1
+    bind $top.cpd58 <Button-1> {
+        lambda e: manage_item_button(e)
+    }
+    label $top.cpd59 \
+        -activebackground {#f9f9f9} -activeforeground black \
+        -background {#d9d9d9} -foreground {#000000} \
+        -highlightbackground {#d9d9d9} -highlightcolor black \
+        -text {Manage item} 
+    vTcl:DefineAlias "$top.cpd59" "database_label1" vTcl:WidgetProc "main_page" 1
     ###################
     # SETTING GEOMETRY
     ###################
     place $top.cpd40 \
-        -in $top -x 40 -y 370 -width 177 -height 42 -anchor nw \
+        -in $top -x 40 -y 380 -width 177 -height 42 -anchor nw \
         -bordermode inside 
     place $top.cpd37 \
         -in $top -x 170 -y 30 -width 431 -relwidth 0 -height 254 -relheight 0 \
         -anchor nw -bordermode inside 
     place $top.cpd39 \
-        -in $top -x 40 -y 330 -width 77 -relwidth 0 -height 24 -relheight 0 \
+        -in $top -x 40 -y 350 -width 77 -relwidth 0 -height 24 -relheight 0 \
         -anchor nw -bordermode inside 
     place $top.scr44 \
         -in $top -x 710 -y 100 -width 292 -relwidth 0 -height 480 \
@@ -175,6 +189,12 @@ proc vTclWindow.top37 {base} {
         -bordermode inside 
     place $top.cpd57 \
         -in $top -x 230 -y 460 -width 177 -height 42 -anchor nw \
+        -bordermode inside 
+    place $top.cpd58 \
+        -in $top -x 40 -y 540 -width 177 -height 42 -anchor nw \
+        -bordermode inside 
+    place $top.cpd59 \
+        -in $top -x 40 -y 510 -width 89 -height 24 -anchor nw \
         -bordermode inside 
 
     vTcl:FireEvent $base <<Ready>>

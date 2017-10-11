@@ -44,7 +44,7 @@ def get_travel_time():
                                     mode="transit",
                                     departure_time=now)
     destination = destination['destination_addresses'][0]
-    return ("Traffic Status \nTo: {}\nDriving: {}\nWalking: {}\nTransit: {}\n".format(destination, driving, walking, transit))
+    return ("Traffic Status: Driving: {}, Walking: {}, Transit: {}".format(driving, walking, transit), destination)
 
 def get_travel_time2():
 # Request directions via public transit
@@ -80,4 +80,4 @@ def get_travel_time2():
                                     mode="transit",
                                     departure_time=now)
     destination = destination['destination_addresses'][0]
-    return ("Traffic Status \nTo: {}\nDriving: {}\nWalking: {}\nTransit: {}\n".format(destination, driving, walking, transit))
+    return ("Traffic Status: Driving: {}, Walking: {}, Transit: {}".format(driving, walking, transit), destination)

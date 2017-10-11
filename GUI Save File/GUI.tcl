@@ -4,152 +4,6 @@
 set vTcl(timestamp) ""
 
 
-
-
-#############################################################################
-## vTcl Code to Load Stock Images
-
-
-if {![info exist vTcl(sourcing)]} {
-#############################################################################
-## Procedure:  vTcl:rename
-
-proc ::vTcl:rename {name} {
-    ## This procedure may be used free of restrictions.
-    ##    Exception added by Christian Gavin on 08/08/02.
-    ## Other packages and widget toolkits have different licensing requirements.
-    ##    Please read their license agreements for details.
-    regsub -all "\\." $name "_" ret
-    regsub -all "\\-" $ret "_" ret
-    regsub -all " " $ret "_" ret
-    regsub -all "/" $ret "__" ret
-    regsub -all "::" $ret "__" ret
-
-    return [string tolower $ret]
-}
-
-#############################################################################
-## Procedure:  vTcl:image:create_new_image
-
-proc ::vTcl:image:create_new_image {filename {description {no description}} {type {}} {data {}}} {
-    ## This procedure may be used free of restrictions.
-    ##    Exception added by Christian Gavin on 08/08/02.
-    ## Other packages and widget toolkits have different licensing requirements.
-    ##    Please read their license agreements for details.
-    # Does the image already exist?
-    if {[info exists ::vTcl(images,files)]} {
-        if {[lsearch -exact $::vTcl(images,files) $filename] > -1} { return }
-    }
-    if {![info exists ::vTcl(sourcing)] && [string length $data] > 0} {
-        set object [image create  [vTcl:image:get_creation_type $filename]  -data $data]
-    } else {
-        # Wait a minute... Does the file actually exist?
-        if {! [file exists $filename] } {
-            # Try current directory
-            set script [file dirname [info script]]
-            set filename [file join $script [file tail $filename] ]
-        }
-
-        if {![file exists $filename]} {
-            set description "file not found!"
-            ## will add 'broken image' again when img is fixed, for
-            ## now create empty
-            set object [image create photo -width 1 -height 1]
-        } else {
-            set object [image create  [vTcl:image:get_creation_type $filename]  -file $filename]
-        }
-    }
-
-    set reference [vTcl:rename $filename]
-    set ::vTcl(images,$reference,image)       $object
-    set ::vTcl(images,$reference,description) $description
-    set ::vTcl(images,$reference,type)        $type
-    set ::vTcl(images,filename,$object)       $filename
-
-    lappend ::vTcl(images,files) $filename
-    lappend ::vTcl(images,$type) $object
-    set ::vTcl(imagefile,$object) $filename   ;# Rozen
-    # return image name in case caller might want it
-    return $object
-}
-
-#############################################################################
-## Procedure:  vTcl:image:get_image
-
-proc ::vTcl:image:get_image {filename} {
-    ## This procedure may be used free of restrictions.
-    ##    Exception added by Christian Gavin on 08/08/02.
-    ## Other packages and widget toolkits have different licensing requirements.
-    ##    Please read their license agreements for details.
-
-    set reference [vTcl:rename $filename]
-
-    # Let's do some checking first
-    if {![info exists ::vTcl(images,$reference,image)]} {
-        # Well, the path may be wrong; in that case check
-        # only the filename instead, without the path.
-
-        set imageTail [file tail $filename]
-
-        foreach oneFile $::vTcl(images,files) {
-            if {[file tail $oneFile] == $imageTail} {
-                set reference [vTcl:rename $oneFile]
-                break
-            }
-        }
-    }
-    # Rozen. There follows a hack in case one wants to rerun a tcl
-    # file which contains a file name where an image is expected.
-    if {![info exists ::vTcl(images,$reference,image)]} {
-        set ::vTcl(images,$reference,image)  [vTcl:image:create_new_image $filename]
-    }
-    return $::vTcl(images,$reference,image)
-}
-
-#############################################################################
-## Procedure:  vTcl:image:get_creation_type
-
-proc ::vTcl:image:get_creation_type {filename} {
-    ## This procedure may be used free of restrictions.
-    ##    Exception added by Christian Gavin on 08/08/02.
-    ## Other packages and widget toolkits have different licensing requirements.
-    ##    Please read their license agreements for details.
-
-    switch [string tolower [file extension $filename]] {
-        .ppm -
-        .jpg -
-        .bmp -
-        .gif    {return photo}
-        .xbm    {return bitmap}
-        default {return photo}
-    }
-}
-
-foreach img {
-
-
-            } {
-    eval set _file [lindex $img 0]
-    vTcl:image:create_new_image\
-        $_file [lindex $img 1] [lindex $img 2] [lindex $img 3]
-}
-
-}
-#############################################################################
-## vTcl Code to Load User Images
-
-catch {package require Img}
-
-foreach img {
-
-        {{$[pwd]8-40.jpg} {user image} user {}}
-
-            } {
-    eval set _file [lindex $img 0]
-    vTcl:image:create_new_image\
-        $_file [lindex $img 1] [lindex $img 2] [lindex $img 3]
-}
-
 set vTcl(actual_gui_bg) #d9d9d9
 set vTcl(actual_gui_fg) #000000
 set vTcl(actual_gui_menu_bg) #d9d9d9
@@ -229,6 +83,9 @@ proc vTclWindow.top37 {base} {
     wm deiconify $top
     wm title $top "FridgeBud"
     vTcl:DefineAlias "$top" "main_page" vTcl:Toplevel:WidgetProc "" 1
+    ttk::style configure Button -background #d9d9d9
+    ttk::style configure Button -foreground #000000
+    ttk::style configure Button -font TkDefaultFont
     button $top.cpd40 \
         -activebackground {#d9d9d9} -activeforeground {#000000} \
         -background {#d9d9d9} -foreground {#000000} \
@@ -311,7 +168,8 @@ proc vTclWindow.top37 {base} {
         -text {Manage item} 
     vTcl:DefineAlias "$top.cpd59" "database_label1" vTcl:WidgetProc "main_page" 1
     canvas $top.can37 \
-        -background {#d9d9d9} -height 128 -highlightbackground {#d9d9d9} \
+        -background {#d9d9d9} -closeenough 1.0 -height 128 \
+        -highlightbackground {#d9d9d9} -highlightcolor black \
         -insertbackground black -relief ridge -selectbackground {#c4c4c4} \
         -selectforeground black -width 143 
     vTcl:DefineAlias "$top.can37" "weather_icon" vTcl:WidgetProc "main_page" 1
@@ -366,7 +224,9 @@ proc vTclWindow.top37 {base} {
     vTcl:DefineAlias "$top.cpd48" "weather_others1" vTcl:WidgetProc "main_page" 1
     entry $top.ent49 \
         -background white -font TkFixedFont -foreground {#000000} \
-        -insertbackground black -textvariable quick_search_entry 
+        -highlightbackground {#d9d9d9} -highlightcolor black \
+        -insertbackground black -selectbackground {#c4c4c4} \
+        -selectforeground black -textvariable quick_search_entry 
     vTcl:DefineAlias "$top.ent49" "traffic_search_entry" vTcl:WidgetProc "main_page" 1
     ###################
     # SETTING GEOMETRY
@@ -422,8 +282,8 @@ proc vTclWindow.top37 {base} {
         -in $top -x 40 -y 200 -width 143 -height 128 -anchor nw \
         -bordermode inside 
     place $top.cpd48 \
-        -in $top -x 180 -y 200 -width 421 -relwidth 0 -height 124 \
-        -relheight 0 -anchor nw -bordermode inside 
+        -in $top -x 180 -y 200 -width 521 -relwidth 0 -height 34 -relheight 0 \
+        -anchor nw -bordermode inside 
     place $top.ent49 \
         -in $top -x 480 -y 382 -width 212 -relwidth 0 -height 37 -relheight 0 \
         -anchor nw -bordermode ignore 

@@ -96,7 +96,7 @@ proc vTclWindow.top37 {base} {
         -activebackground {#f9f9f9} -activeforeground black \
         -background {#d9d9d9} -font $::vTcl(fonts,vTcl:font9,object) \
         -foreground {#000000} -highlightbackground {#d9d9d9} \
-        -highlightcolor black -text Label 
+        -highlightcolor black -text {Weather Temp} 
     vTcl:DefineAlias "$top.cpd37" "weather_temp" vTcl:WidgetProc "main_page" 1
     label $top.cpd39 \
         -activebackground {#f9f9f9} -activeforeground black \
@@ -179,13 +179,13 @@ proc vTclWindow.top37 {base} {
         -activebackground {#f9f9f9} -activeforeground black \
         -background {#d9d9d9} -font $::vTcl(fonts,vTcl:font9,object) \
         -foreground {#000000} -highlightbackground {#d9d9d9} \
-        -highlightcolor black -text Label 
+        -highlightcolor black -text {Weather Location} 
     vTcl:DefineAlias "$top.cpd41" "weather_location" vTcl:WidgetProc "main_page" 1
     label $top.cpd42 \
         -activebackground {#f9f9f9} -activeforeground black \
         -background {#d9d9d9} -font $::vTcl(fonts,vTcl:font9,object) \
         -foreground {#000000} -highlightbackground {#d9d9d9} \
-        -highlightcolor black -text Label 
+        -highlightcolor black -text {Weather Others} 
     vTcl:DefineAlias "$top.cpd42" "weather_others" vTcl:WidgetProc "main_page" 1
     button $top.cpd43 \
         -activebackground {#d9d9d9} -activeforeground {#000000} \
@@ -214,7 +214,7 @@ proc vTclWindow.top37 {base} {
         -activebackground {#f9f9f9} -activeforeground black \
         -background {#d9d9d9} -font $::vTcl(fonts,vTcl:font9,object) \
         -foreground {#000000} -highlightbackground {#d9d9d9} \
-        -highlightcolor black -justify left -text Label 
+        -highlightcolor black -justify left -text Traffic 
     vTcl:DefineAlias "$top.cpd48" "weather_others1" vTcl:WidgetProc "main_page" 1
     ###################
     # SETTING GEOMETRY

@@ -99,6 +99,12 @@ def refresh():
 
 def main():
     refresh()
+    value, location = traveltime.get_travel_time()
+    w.traffic_label.configure(text=value)
+    w.traffic_label_location.configure(text=location)
+    w.traffic_length = location
+    w.location_font_size()
+    w.traffic_font_size()
 
 def init(top, gui, *args, **kwargs):
     global w, top_level, root
@@ -129,12 +135,22 @@ def get_traffic():
     w.traffic_label.configure(text=value)
 
 def show_traffic_location_1(p1):
-    value = traveltime.get_travel_time()
+    value, location = traveltime.get_travel_time()
     w.traffic_label.configure(text=value)
+    w.traffic_label_location.configure(text=location)
+    w.traffic_length = location
+    w.traffic_status_length = value
+    w.location_font_size()
+    w.traffic_font_size()
 
 def show_traffic_location_2(p1):
-    value = traveltime.get_travel_time2()
+    value, location = traveltime.get_travel_time2()
     w.traffic_label.configure(text=value)
+    w.traffic_label_location.configure(text=location)
+    w.traffic_length = location
+    w.traffic_status_length = value
+    w.location_font_size()
+    w.traffic_font_size()
 
 def check_folders():
     if not os.path.exists("data/"):
