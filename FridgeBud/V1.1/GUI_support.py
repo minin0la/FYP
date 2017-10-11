@@ -166,6 +166,7 @@ def send_to_telegram():
         else:
             result = result + "Expiring on {}\n".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
         i = i + 1
+    result = "Message from FridgeBud\n" + result
     content = {"value1": result}
     requests.post("https://maker.ifttt.com/trigger/FridgeBud_Item/with/key/d9O5pfQ2QslLb8AHONzshC", json=content)
 
