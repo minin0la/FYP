@@ -67,6 +67,26 @@ def location2(value):
     global top_level
     top_level.wm_state("normal")
 
+def country_cancel():
+    GUI_support.togglebigscreen()
+    global top_level
+    top_level.wm_state("normal")
+
+def home_cancel():
+    GUI_support.togglebigscreen()
+    global top_level
+    top_level.wm_state("normal")
+
+def location1_cancel():
+    GUI_support.togglebigscreen()
+    global top_level
+    top_level.wm_state("normal")
+
+def location2_cancel():
+    GUI_support.togglebigscreen()
+    global top_level
+    top_level.wm_state("normal")
+
 def popup_country():
     togglesmallscreen()
     GUI_support.togglesmallscreen()

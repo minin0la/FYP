@@ -57,7 +57,7 @@ class Popup:
             # get screen width and height
         screen_width = top.winfo_screenwidth()
         screen_height = top.winfo_screenheight()
-        width = 600
+        width = 1024
         height = 121
         # calculate position x and y coordinates
         x = (screen_width/2) - (width/2)
@@ -98,6 +98,7 @@ class Popup:
         self.CANCEL.configure(highlightcolor="black")
         self.CANCEL.configure(text='''CANCEL''')
         self.CANCEL.configure(width=277)
+        self.CANCEL.bind('<Button-1>', lambda e: popup_text_support.location2_cancel(e))
 
 
 

@@ -278,7 +278,7 @@ class FridgeBud:
         self.traffic_icon.configure(image=self._img2)
 
         self.traffic_label = Label(top)
-        self.traffic_label.place(relx=0.18, rely=0.43, height=34, width=600)
+        self.traffic_label.place(relx=0.18, rely=0.43, height=34, width=521)
         self.traffic_label.configure(activebackground="#f9f9f9")
         self.traffic_label.configure(activeforeground="black")
         self.traffic_label.configure(background="#d9d9d9")
@@ -297,7 +297,7 @@ class FridgeBud:
         self.traffic_label.configure(font=self.custom_font)
 
         self.traffic_label_location = Label(top)
-        self.traffic_label_location.place(relx=0.18, rely=0.38, height=34, width=600)
+        self.traffic_label_location.place(relx=0.18, rely=0.38, height=34, width=521)
         self.traffic_label_location.configure(activebackground="#f9f9f9")
         self.traffic_label_location.configure(activeforeground="black")
         self.traffic_label_location.configure(background="#d9d9d9")
@@ -305,7 +305,6 @@ class FridgeBud:
         self.traffic_label_location.configure(highlightbackground="#d9d9d9")
         self.traffic_label_location.configure(highlightcolor="black")
         self.traffic_label_location.configure(justify=LEFT)
-        self.traffic_label_location.configure(width=521)
 
         original_font2 = tkinter.font.nametofont(self.traffic_label_location.cget("font"))
         self.custom_font2 = tkinter.font.Font()

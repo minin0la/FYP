@@ -50,6 +50,26 @@ def location2(p1):
     manage_settings_support.location2(value)
     destroy_window() 
 
+def country_cancel(p1):
+    import manage_settings_support
+    manage_settings_support.country_cancel()
+    destroy_window() 
+
+def home_cancel(p1):
+    import manage_settings_support
+    manage_settings_support.home_cancel()
+    destroy_window() 
+
+def location1_cancel(p1):
+    import manage_settings_support
+    manage_settings_support.location1_cancel()
+    destroy_window() 
+
+def location2_cancel(p1):
+    import manage_settings_support
+    manage_settings_support.location2_cancel()
+    destroy_window() 
+
 def toggleKeyboard():
     p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)
     if not "" == p.stderr.readline():
