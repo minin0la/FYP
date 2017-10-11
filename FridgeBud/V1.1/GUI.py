@@ -311,7 +311,7 @@ class FridgeBud:
         self.weather_temp.configure(highlightcolor="black")
         self.weather_temp.configure(justify=LEFT)
         temperature = weather.get_weather().get_temperature('celsius')['temp']
-        self.weather_temp.configure(text=str(temperature) + " C°")
+        self.weather_temp.configure(text=str(temperature) + " C")
         self.weather_temp.configure(width=121)
 
 
