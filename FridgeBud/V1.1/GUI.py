@@ -333,23 +333,23 @@ class FridgeBud:
         text = self.traffic_status_length
         # first, grow the font until the text is too big,
         size = self.custom_font.actual("size")
-        while size < 600:
+        while size < 521:
             size += 1
             self.custom_font.configure(size=size)
         # ... then shrink it until it fits
-        while size > 1 and self.custom_font.measure(text) >= 600:
-            size -= 5
+        while size > 1 and self.custom_font.measure(text) >= 521:
+            size -= 1
             self.custom_font.configure(size=size)
 
     def location_font_size(self):
         text = self.traffic_length
         # first, grow the font until the text is too big,
         size = self.custom_font2.actual("size")
-        while size < 600:
+        while size < 521:
             size += 1
             self.custom_font2.configure(size=size)
         # ... then shrink it until it fits
-        while size > 1 and self.custom_font2.measure(text) > 600:
+        while size > 1 and self.custom_font2.measure(text) > 521:
             size -= 1
             self.custom_font2.configure(size=size)
 
