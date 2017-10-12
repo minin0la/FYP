@@ -159,7 +159,7 @@ def send_to_telegram():
     i = 1
     lists = fileIO("data/list.json", "load")
     for the_list in lists:
-        result = result + "{}. {}\n".format(i, the_list['Name'])
+        result = result + "{}. {}\n".format(i, the_list['Name'])  
         dayleft = int(the_list['Date']) - datetime.date.today().day
         if datetime.date.today() == datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])):
             result = result + "Expired ({})\n".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
