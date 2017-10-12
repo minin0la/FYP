@@ -323,9 +323,9 @@ class FridgeBud:
         self.custom_font2.configure(**original_font2.configure())
         self.traffic_label_location.configure(font=self.custom_font2)
         
-        # text, destination = traveltime.get_travel_time()
-        self.traffic_length = ""
-        self.traffic_status_length = ""
+        text, destination = traveltime.get_travel_time()
+        self.traffic_length = destination
+        self.traffic_status_length = text
 
         self.weather_temp = Label(top)
         self.weather_temp.place(relx=0.22, rely=0.12, height=94, width=121)
