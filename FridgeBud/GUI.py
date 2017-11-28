@@ -1,5 +1,5 @@
 # from Tkinter import *
-from Tkinter import*
+from tkinter import*
 import time
 
 root = Tk()

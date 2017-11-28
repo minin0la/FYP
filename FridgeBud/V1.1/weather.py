@@ -8,7 +8,7 @@ import json
 def get_observation():
     try:
         owm = pyowm.OWM('a78e2cc0bcbe919d628ac38decd35a55')
-        USER_LOCATION = "648324"
+        USER_LOCATION = "London,GB"
 
         # Search for current weather in London (UK)
         observation = owm.weather_at_place(USER_LOCATION)
@@ -29,15 +29,16 @@ def get_observation():
 
 def get_weather_icon():
     owm = pyowm.OWM('a78e2cc0bcbe919d628ac38decd35a55')
-    USER_LOCATION = "648324"
+    USER_LOCATION = "London,GB"
     observation = owm.weather_at_place(USER_LOCATION)
     result = json.loads(observation.to_JSON())["Weather"]["weather_icon_name"]
     return result
 
 def get_weather():
     owm = pyowm.OWM('a78e2cc0bcbe919d628ac38decd35a55')
-    USER_LOCATION = "648324"
+    USER_LOCATION = "London,GB"
 
     observation = owm.weather_at_place(USER_LOCATION)
     w = observation.get_weather()
     return w
+print(get_observation())
