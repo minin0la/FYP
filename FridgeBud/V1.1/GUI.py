@@ -195,7 +195,7 @@ class FridgeBud:
         self.weather_icon.configure(highlightbackground="#d9d9d9")
         self.weather_icon.configure(highlightcolor="black")
         self.weather_icon.configure(anchor=CENTER)
-        icon_path = "Images/weather_icon/" + str(weather.get_weather_icon(home)) + ".gif"
+        icon_path = "Images/weather_icon/" + str(weather.get_weather_icon(country)) + ".gif"
         img = PIL.Image.open(icon_path)
         img = img.resize((150, 150), PIL.Image.ANTIALIAS)
         self._img1 = PIL.ImageTk.PhotoImage(img)
@@ -213,9 +213,9 @@ class FridgeBud:
         self.weather_location.configure(highlightcolor="black")
         self.weather_location.configure(justify=LEFT)
         try:
-            self.weather_location.configure(text=json.loads(weather.get_observation(home).to_JSON())["Location"]["name"])
+            self.weather_location.configure(text=json.loads(weather.get_observation(country).to_JSON())["Location"]["name"])
         except:
-            self.weather_location.configure(text=weather.get_observation(home))
+            self.weather_location.configure(text=weather.get_observation(country))
         self.weather_location.configure(width=411)
 
         self.weather_others = Label(top)
@@ -230,9 +230,9 @@ class FridgeBud:
         self.weather_others.configure(width=221)
         self.weather_others.configure(justify=LEFT)
         try:
-            wind_speed = weather.get_weather(home).get_wind()                  # {'speed': 4.6, 'deg': 330}
-            humidity = weather.get_weather(home).get_humidity()
-            status = weather.get_weather(home).get_detailed_status() 
+            wind_speed = weather.get_weather(country).get_wind()                  # {'speed': 4.6, 'deg': 330}
+            humidity = weather.get_weather(country).get_humidity()
+            status = weather.get_weather(country).get_detailed_status() 
             message = "{}\nHumidity: {}%\nWind Speed: {}m/s".format(status, humidity, wind_speed["speed"])
         except:
             message = "Error"
@@ -344,7 +344,7 @@ class FridgeBud:
         self.weather_temp.configure(highlightcolor="black")
         self.weather_temp.configure(justify=LEFT)
         try:
-            temperature = weather.get_weather(home).get_temperature('celsius')['temp']
+            temperature = weather.get_weather(country).get_temperature('celsius')['temp']
         except:
             temperature = "Error"
         self.weather_temp.configure(text=str(temperature) + " C")
