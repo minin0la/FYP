@@ -314,8 +314,8 @@ class FridgeBud:
         # self.traffic_label_location.configure(font=self.custom_font2)
 
         self.traffic_label_location = ScrolledListBox(top)
-        self.traffic_label_location.place(relx=0.18, rely=0.38, relheight=0.02
-                , relwidth=0.29)
+        self.traffic_label_location.place(relx=0.22, rely=0.38, relheight=0.032
+                , relwidth=0.45)
         self.traffic_label_location.configure(background="white")
         self.traffic_label_location.configure(font="TkFixedFont")
         self.traffic_label_location.configure(foreground="black")
