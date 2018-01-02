@@ -51,7 +51,14 @@ def milk_remove_button(p1):
         i = i + 1
 
 def weather_button(p1):
-    w.information_box.configure(text=weather.get_weather())
+    import json
+    from dataIO import fileIO
+
+    settings = fileIO("data/settings.json", "load")
+
+    for i in settings:
+        location = i['Location 1']
+    w.information_box.configure(text=weather.get_weather(location))
 
 def set_text(text):
     w.information_box.configure(text=text)
@@ -99,7 +106,11 @@ def refresh():
 
 def main():
     refresh()
-    value, location = traveltime.get_travel_time()
+    try:
+        value, location = traveltime.get_travel_time()
+    except:
+        value = "Error"
+        location = "Error"
     w.traffic_label.configure(text=value)
     w.traffic_label_location.configure(text=location)
     w.traffic_length = location

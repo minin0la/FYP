@@ -11,6 +11,7 @@ import PIL.ImageTk
 import urllib
 import traveltime
 import os
+from dataIO import fileIO
 
 try:
     from Tkinter import *
@@ -26,6 +27,7 @@ except ImportError:
 
 import GUI_support
 
+# Getting all settings data
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
@@ -77,30 +79,12 @@ class FridgeBud:
         top.configure(highlightcolor="black")
         GUI_support.check_folders()
         GUI_support.check_files()
-
-
-        # self.weather_button = Button(top)
-        # self.weather_button.place(relx=0.04, rely=0.63, height=42, width=177)
-        # self.weather_button.configure(activebackground="#d9d9d9")
-        # self.weather_button.configure(activeforeground="#000000")
-        # self.weather_button.configure(background="#d9d9d9")
-        # self.weather_button.configure(foreground="#000000")
-        # self.weather_button.configure(highlightbackground="#d9d9d9")
-        # self.weather_button.configure(highlightcolor="black")
-        # self.weather_button.configure(text='''Weather''')
-        # self.weather_button.bind('<Button-1>',lambda e:GUI_support.weather_button(e))
-
-        # self.information_box = Label(top)
-        # self.information_box.place(relx=0.17, rely=0.05, height=254, width=431)
-        # self.information_box.configure(activebackground="#f9f9f9")
-        # self.information_box.configure(activeforeground="black")
-        # self.information_box.configure(background="#d9d9d9")
-        # self.information_box.configure(font=font9)
-        # self.information_box.configure(foreground="#000000")
-        # self.information_box.configure(highlightbackground="#d9d9d9")
-        # self.information_box.configure(highlightcolor="black")
-        # self.information_box.configure(text=weather.get_weather())
-        # self.information_box.configure(width=431)
+        settings = fileIO("data/settings.json", "load")
+        for i in settings:
+            home = i['Home']
+            country = i['Country']
+            location1 = i['Location 1']
+            location2 = i['Location 2']
 
         self.information_label = Label(top)
         self.information_label.place(relx=0.04, rely=0.58, height=24, width=77)
@@ -211,7 +195,7 @@ class FridgeBud:
         self.weather_icon.configure(highlightbackground="#d9d9d9")
         self.weather_icon.configure(highlightcolor="black")
         self.weather_icon.configure(anchor=CENTER)
-        icon_path = "Images/weather_icon/" + str(weather.get_weather_icon()) + ".gif"
+        icon_path = "Images/weather_icon/" + str(weather.get_weather_icon(home)) + ".gif"
         img = PIL.Image.open(icon_path)
         img = img.resize((150, 150), PIL.Image.ANTIALIAS)
         self._img1 = PIL.ImageTk.PhotoImage(img)
@@ -228,7 +212,10 @@ class FridgeBud:
         self.weather_location.configure(highlightbackground="#d9d9d9")
         self.weather_location.configure(highlightcolor="black")
         self.weather_location.configure(justify=LEFT)
-        self.weather_location.configure(text=json.loads(weather.get_observation().to_JSON())["Location"]["name"])
+        try:
+            self.weather_location.configure(text=json.loads(weather.get_observation(home).to_JSON())["Location"]["name"])
+        except:
+            self.weather_location.configure(text=weather.get_observation(home))
         self.weather_location.configure(width=411)
 
         self.weather_others = Label(top)
@@ -242,10 +229,13 @@ class FridgeBud:
         self.weather_others.configure(highlightcolor="black")
         self.weather_others.configure(width=221)
         self.weather_others.configure(justify=LEFT)
-        wind_speed = weather.get_weather().get_wind()                  # {'speed': 4.6, 'deg': 330}
-        humidity = weather.get_weather().get_humidity()
-        status = weather.get_weather().get_detailed_status() 
-        message = "{}\nHumidity: {}%\nWind Speed: {}m/s".format(status, humidity, wind_speed["speed"])
+        try:
+            wind_speed = weather.get_weather(home).get_wind()                  # {'speed': 4.6, 'deg': 330}
+            humidity = weather.get_weather(home).get_humidity()
+            status = weather.get_weather(home).get_detailed_status() 
+            message = "{}\nHumidity: {}%\nWind Speed: {}m/s".format(status, humidity, wind_speed["speed"])
+        except:
+            message = "Error"
         self.weather_others.configure(text=message)
 
         self.traffic_location = Button(top)
@@ -323,7 +313,11 @@ class FridgeBud:
         self.custom_font2.configure(**original_font2.configure())
         self.traffic_label_location.configure(font=self.custom_font2)
         
-        text, destination = traveltime.get_travel_time()
+        try:
+            text, destination = traveltime.get_travel_time()
+        except:
+            text = "Error"
+            destination = "Error"
         self.traffic_length = destination
         self.traffic_status_length = text
 
@@ -337,7 +331,10 @@ class FridgeBud:
         self.weather_temp.configure(highlightbackground="#d9d9d9")
         self.weather_temp.configure(highlightcolor="black")
         self.weather_temp.configure(justify=LEFT)
-        temperature = weather.get_weather().get_temperature('celsius')['temp']
+        try:
+            temperature = weather.get_weather(home).get_temperature('celsius')['temp']
+        except:
+            temperature = "Error"
         self.weather_temp.configure(text=str(temperature) + " C")
         self.weather_temp.configure(width=121)
 
