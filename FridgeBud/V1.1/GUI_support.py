@@ -169,14 +169,15 @@ def send_to_telegram():
     i = 1
     lists = fileIO("data/list.json", "load")
     for the_list in lists:
-        result = result + "{}. {}\n".format(i, the_list['Name'])  
+        result = result + "{}. {}".format(i, the_list['Name']) + "<br>"  
         dayleft = int(the_list['Date']) - datetime.date.today().day
         if datetime.date.today() == datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])):
-            result = result + "Expired ({})\n".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
+            result = result + "Expired ({})<br>".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
         else:
-            result = result + "Expiring on {}\n".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
+            result = result + "Expiring on {}<br>".format(datetime.date(int(the_list['Year']), int(the_list['Month']), int(the_list['Date'])).strftime("%A, %d %B %Y"))
         i = i + 1
-    result = "Message from FridgeBud\n" + result
+    print(result)
+    result = "Message from FridgeBud<br>Item in the fridge<br>" + result
     content = {"value1": result}
     requests.post("https://maker.ifttt.com/trigger/FridgeBud_Item/with/key/d9O5pfQ2QslLb8AHONzshC", json=content)
 
