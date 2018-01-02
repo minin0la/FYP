@@ -7,6 +7,7 @@
 
 import sys
 import GUI_support
+import popup_text_home
 import popup_text_country
 import popup_text_location_1
 import popup_text_location_2
@@ -96,7 +97,7 @@ def popup_country():
 def popup_home():
     togglesmallscreen()
     GUI_support.togglesmallscreen()
-    popup_text_country.create_Popup(root)
+    popup_text_home.create_Popup(root)
     toggleKeyboard()
 
 def popup_location_1():

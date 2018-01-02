@@ -292,26 +292,38 @@ class FridgeBud:
         self.traffic_label.configure(justify=LEFT)
         
 
-        import tkinter.font
-        original_font = tkinter.font.nametofont(self.traffic_label.cget("font"))
-        self.custom_font = tkinter.font.Font()
-        self.custom_font.configure(**original_font.configure())
-        self.traffic_label.configure(font=self.custom_font)
+        # import tkinter.font
+        # original_font = tkinter.font.nametofont(self.traffic_label.cget("font"))
+        # self.custom_font = tkinter.font.Font()
+        # self.custom_font.configure(**original_font.configure())
+        # self.traffic_label.configure(font=self.custom_font)
 
-        self.traffic_label_location = Label(top)
-        self.traffic_label_location.place(relx=0.18, rely=0.38, height=34, width=521)
-        self.traffic_label_location.configure(activebackground="#f9f9f9")
-        self.traffic_label_location.configure(activeforeground="black")
-        self.traffic_label_location.configure(background="#d9d9d9")
-        self.traffic_label_location.configure(foreground="#000000")
+        # self.traffic_label_location = Label(top)
+        # self.traffic_label_location.place(relx=0.18, rely=0.38, height=34, width=521)
+        # self.traffic_label_location.configure(activebackground="#f9f9f9")
+        # self.traffic_label_location.configure(activeforeground="black")
+        # self.traffic_label_location.configure(background="#d9d9d9")
+        # self.traffic_label_location.configure(foreground="#000000")
+        # self.traffic_label_location.configure(highlightbackground="#d9d9d9")
+        # self.traffic_label_location.configure(highlightcolor="black")
+        # self.traffic_label_location.configure(justify=LEFT)
+
+        # original_font2 = tkinter.font.nametofont(self.traffic_label_location.cget("font"))
+        # self.custom_font2 = tkinter.font.Font()
+        # self.custom_font2.configure(**original_font2.configure())
+        # self.traffic_label_location.configure(font=self.custom_font2)
+
+        self.traffic_label_location = ScrolledListBox(top)
+        self.traffic_label_location.place(relx=0.18, rely=0.38, relheight=0.02
+                , relwidth=0.29)
+        self.traffic_label_location.configure(background="white")
+        self.traffic_label_location.configure(font="TkFixedFont")
+        self.traffic_label_location.configure(foreground="black")
         self.traffic_label_location.configure(highlightbackground="#d9d9d9")
-        self.traffic_label_location.configure(highlightcolor="black")
-        self.traffic_label_location.configure(justify=LEFT)
-
-        original_font2 = tkinter.font.nametofont(self.traffic_label_location.cget("font"))
-        self.custom_font2 = tkinter.font.Font()
-        self.custom_font2.configure(**original_font2.configure())
-        self.traffic_label_location.configure(font=self.custom_font2)
+        self.traffic_label_location.configure(highlightcolor="#d9d9d9")
+        self.traffic_label_location.configure(selectbackground="#c4c4c4")
+        self.traffic_label_location.configure(selectforeground="black")
+        self.traffic_label_location.configure(width=10)
         
         try:
             text, destination = traveltime.get_travel_time()

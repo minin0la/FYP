@@ -71,7 +71,7 @@ class FridgeBud:
         self.home_set.configure(highlightcolor="black")
         self.home_set.configure(text='''Set Home''')
         self.home_set.configure(width=167)
-        self.home_set.bind('<Button-1>', lambda e: manage_settings_support.popup_location_2()) 
+        self.home_set.bind('<Button-1>', lambda e: manage_settings_support.popup_home()) 
 
         self.Location_1_set = Button(top)
         self.Location_1_set.place(relx=0.08, rely=0.28, height=42, width=167)
