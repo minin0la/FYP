@@ -174,6 +174,17 @@ class FridgeBud:
         self.setting_button.configure(text='''Settings''')
         self.setting_button.bind('<Button-1>',lambda e:GUI_support.settings())
 
+        self.chrome_button = Button(top)
+        self.chrome_button.place(relx=0.22, rely=0.9, height=42, width=177)
+        self.chrome_button.configure(activebackground="#d9d9d9")
+        self.chrome_button.configure(activeforeground="#000000")
+        self.chrome_button.configure(background="#ffa500")
+        self.chrome_button.configure(foreground="#000000")
+        self.chrome_button.configure(highlightbackground="#d9d9d9")
+        self.chrome_button.configure(highlightcolor="black")
+        self.chrome_button.configure(text='''Internet''')
+        self.chrome_button.bind('<Button-1>',lambda e:GUI_support.chrome())
+
         self.setting_label = Label(top)
         self.setting_label.place(relx=0.04, rely=0.85, height=24, width=89)
         self.setting_label.configure(activebackground="#f9f9f9")
