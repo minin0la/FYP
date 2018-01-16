@@ -107,9 +107,9 @@ def main():
         value = "Error"
         location = "Error"
     w.traffic_label.configure(text=value)
-    # w.traffic_label_location.configure(text=location)
-    w.traffic_label_location.delete(0, END)
-    w.traffic_label_location.insert(END, location + "\n")
+    w.traffic_label_location.configure(text=location)
+    # w.traffic_label_location.delete(0, END)
+    # w.traffic_label_location.insert(END, location + "\n")
     w.traffic_length = location
     w.traffic_status_length = value
     # w.location_font_size()
@@ -140,10 +140,14 @@ def settings():
     manage_settings.create_FridgeBud(root)
 
 def chrome():
-    webbrowser.open("https://www.sp.edu.sg/wps/portal/vp-spws/")
-    
+    # webbrowser.open("https://www.sp.edu.sg/wps/portal/vp-spws/")
     togglesmallscreen()
     toggleKeyboard()
+    browser = subprocess.Popen(['chromium-browser', 'http://sp.edu.sg'])
+    browser.wait()
+    toggleKeyboard()
+    togglebigscreen()
+
 
 def toggleKeyboard():
     p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)
@@ -156,25 +160,25 @@ def get_traffic():
 
 def show_traffic_location_1(p1):
     value, location = traveltime.get_travel_time()
-    w.traffic_label.configure(text=value)
-    # w.traffic_label_location.configure(text=location)
-    w.traffic_label_location.delete(0, END)
-    w.traffic_label_location.insert(END, location + "\n")
+    # w.traffic_label_location.delete(0, END)
+    # w.traffic_label_location.insert(END, location + "\n")
     w.traffic_length = location
     w.traffic_status_length = value
     w.location_font_size()
     w.traffic_font_size()
+    w.traffic_label.configure(text=value)
+    w.traffic_label_location.configure(text=location)
 
 def show_traffic_location_2(p1):
     value, location = traveltime.get_travel_time2()
-    w.traffic_label.configure(text=value)
-    # w.traffic_label_location.configure(text=location)
-    w.traffic_label_location.delete(0, END)
-    w.traffic_label_location.insert(END, location + "\n")
+    # w.traffic_label_location.delete(0, END)
+    # w.traffic_label_location.insert(END, location + "\n")
     w.traffic_length = location
     w.traffic_status_length = value
     w.location_font_size()
     w.traffic_font_size()
+    w.traffic_label.configure(text=value)
+    w.traffic_label_location.configure(text=location)
 
 def send_to_telegram():
     import requests
