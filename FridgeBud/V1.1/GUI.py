@@ -206,11 +206,11 @@ class FridgeBud:
         self.weather_icon.configure(highlightbackground="#d9d9d9")
         self.weather_icon.configure(highlightcolor="black")
         self.weather_icon.configure(anchor=CENTER)
-        icon_path = "Images/weather_icon/" + str(weather.get_weather_icon(country)) + ".gif"
-        img = PIL.Image.open(icon_path)
-        img = img.resize((150, 150), PIL.Image.ANTIALIAS)
-        self._img1 = PIL.ImageTk.PhotoImage(img)
-        self.weather_icon.configure(image=self._img1)
+        # icon_path = "Images/weather_icon/" + str(weather.get_weather_icon(country)) + ".gif"
+        # img = PIL.Image.open(icon_path)
+        # img = img.resize((150, 150), PIL.Image.ANTIALIAS)
+        # self._img1 = PIL.ImageTk.PhotoImage(img)
+        # self.weather_icon.configure(image=self._img1)
         
 
         self.weather_location = Label(top)
@@ -223,10 +223,10 @@ class FridgeBud:
         self.weather_location.configure(highlightbackground="#d9d9d9")
         self.weather_location.configure(highlightcolor="black")
         self.weather_location.configure(justify=LEFT)
-        try:
-            self.weather_location.configure(text=json.loads(weather.get_observation(country).to_JSON())["Location"]["name"])
-        except:
-            self.weather_location.configure(text=weather.get_observation(country))
+        # try:
+        #     self.weather_location.configure(text=json.loads(weather.get_observation(country).to_JSON())["Location"]["name"])
+        # except:
+        #     self.weather_location.configure(text=weather.get_observation(country))
         self.weather_location.configure(width=411)
 
         self.weather_others = Label(top)
@@ -240,14 +240,14 @@ class FridgeBud:
         self.weather_others.configure(highlightcolor="black")
         self.weather_others.configure(width=221)
         self.weather_others.configure(justify=LEFT)
-        try:
-            wind_speed = weather.get_weather(country).get_wind()                  # {'speed': 4.6, 'deg': 330}
-            humidity = weather.get_weather(country).get_humidity()
-            status = weather.get_weather(country).get_detailed_status() 
-            message = "{}\nHumidity: {}%\nWind Speed: {}m/s".format(status, humidity, wind_speed["speed"])
-        except:
-            message = "Error"
-        self.weather_others.configure(text=message)
+        # try:
+        #     wind_speed = weather.get_weather(country).get_wind()                  # {'speed': 4.6, 'deg': 330}
+        #     humidity = weather.get_weather(country).get_humidity()
+        #     status = weather.get_weather(country).get_detailed_status() 
+        #     message = "{}\nHumidity: {}%\nWind Speed: {}m/s".format(status, humidity, wind_speed["speed"])
+        # except:
+        #     message = "Error"
+        # self.weather_others.configure(text=message)
 
         self.traffic_location = Button(top)
         self.traffic_location.place(relx=0.04, rely=0.63, height=42
@@ -375,7 +375,7 @@ class FridgeBud:
 
     def location_font_size(self):
         text = self.traffic_length
-        # first, grow the font until the text is too big,
+        # fi rst, grow the font until the text is too big,
         size = self.custom_font2.actual("size")
         size = 521
         self.custom_font2.configure(size=size)
