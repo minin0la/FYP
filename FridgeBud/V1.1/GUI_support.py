@@ -16,6 +16,7 @@ import manage_item
 import delete_item
 import manage_settings
 import traveltime
+import webbrowser
 
 try:
     from Tkinter import *
@@ -136,6 +137,9 @@ def remove_item():
 
 def settings():
     manage_settings.create_FridgeBud(root)
+
+def chrome():
+    webbrowser.open("https://www.sp.edu.sg/wps/portal/vp-spws/")
 
 def get_traffic():
     value = traveltime.get_travel_time()
