@@ -142,6 +142,7 @@ def settings():
 def chrome():
     webbrowser.open("https://www.sp.edu.sg/wps/portal/vp-spws/")
     
+    togglesmallscreen()
     toggleKeyboard()
 
 def toggleKeyboard():
