@@ -140,12 +140,14 @@ def settings():
     manage_settings.create_FridgeBud(root)
 
 def chrome():
-    webbrowser.open("https://www.sp.edu.sg/wps/portal/vp-spws/")
+    # webbrowser.open("https://www.sp.edu.sg/wps/portal/vp-spws/")
     togglesmallscreen()
     toggleKeyboard()
     browser = subprocess.Popen(['chromium-browser', 'http://sp.edu.sg'])
     browser.wait()
+    toggleKeyboard()
     togglebigscreen()
+
 
 def toggleKeyboard():
     p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)
