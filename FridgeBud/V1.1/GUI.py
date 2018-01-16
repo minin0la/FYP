@@ -178,7 +178,7 @@ class FridgeBud:
         self.chrome_button.place(relx=0.22, rely=0.9, height=42, width=177)
         self.chrome_button.configure(activebackground="#d9d9d9")
         self.chrome_button.configure(activeforeground="#000000")
-        self.chrome_button.configure(background="#ffa500")
+        self.chrome_button.configure(background="#ff69b4")
         self.chrome_button.configure(foreground="#000000")
         self.chrome_button.configure(highlightbackground="#d9d9d9")
         self.chrome_button.configure(highlightcolor="black")

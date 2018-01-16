@@ -17,6 +17,7 @@ import delete_item
 import manage_settings
 import traveltime
 import webbrowser
+import subprocess
 
 try:
     from Tkinter import *
@@ -140,6 +141,14 @@ def settings():
 
 def chrome():
     webbrowser.open("https://www.sp.edu.sg/wps/portal/vp-spws/")
+    
+    togglesmallscreen()
+    toggleKeyboard()
+
+def toggleKeyboard():
+    p = subprocess.Popen(['florence show'], shell=True, stdout= subprocess.PIPE, stderr= subprocess.PIPE, universal_newlines=True)
+    if not "" == p.stderr.readline():
+        subprocess.Popen(['florence'], shell=True) 
 
 def get_traffic():
     value = traveltime.get_travel_time()
