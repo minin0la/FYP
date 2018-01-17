@@ -18,6 +18,9 @@ import manage_settings
 import traveltime
 import webbrowser
 import subprocess
+import PIL.Image
+import PIL.ImageTk
+import json
 
 try:
     from Tkinter import *
@@ -99,8 +102,35 @@ def refresh():
         i = i + 1
     root.after(1000, refresh)
 
+def refresh_weather():
+    settings = fileIO("data/settings.json", "load")
+    for i in settings:
+        home = i['Home']
+        country = i['Country']
+        location1 = i['Location 1']
+        location2 = i['Location 2']
+    icon_path = "Images/weather_icon/" + str(weather.get_weather_icon(country)) + ".gif"
+    img = PIL.Image.open(icon_path)
+    img = img.resize((150, 150), PIL.Image.ANTIALIAS)
+    w._img1 = PIL.ImageTk.PhotoImage(img)
+    w.weather_icon.configure(image=w._img1)
+    try:
+        w.weather_location.configure(text=json.loads(weather.get_observation(country).to_JSON())["Location"]["name"])
+    except:
+        w.weather_location.configure(text=weather.get_observation(country))
+    try:
+        wind_speed = weather.get_weather(country).get_wind()                  # {'speed': 4.6, 'deg': 330}
+        humidity = weather.get_weather(country).get_humidity()
+        status = weather.get_weather(country).get_detailed_status() 
+        message = "{}\nHumidity: {}%\nWind Speed: {}m/s".format(status, humidity, wind_speed["speed"])
+    except:
+        message = "Error"
+    w.weather_others.configure(text=message)
+    root.after(3600000, refresh_weather)
+
 def main():
     refresh()
+    refresh_weather()
     try:
         value, location = traveltime.get_travel_time()
     except:
