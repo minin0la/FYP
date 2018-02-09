@@ -1,1 +1,14 @@
-[]
+[
+    {
+        "Date" : 13,
+        "Month" : 2,
+        "Name" : "Drinks",
+        "Year" : 2018
+    },
+    {
+        "Date" : 10,
+        "Month" : 2,
+        "Name" : "Fish",
+        "Year" : 2018
+    }
+]
